@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>images/tray_icon_loading.png</file>
         <file>images/tray_icon.png</file>
+        <file>translations/Tapeciarnia_pl_PL.qm</file>
     </qresource>
 </RCC>

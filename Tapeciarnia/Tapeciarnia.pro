@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Tapeciarnia
 TEMPLATE = app
 
+TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 
 SOURCES += main.cpp\
         MainWindow.cpp
@@ -21,3 +22,6 @@ FORMS    += MainWindow.ui
 
 RESOURCES += \
     Tapeciarnia.qrc
+
+OTHER_FILES += \
+    translations/Tapeciarnia_pl_PL.ts
