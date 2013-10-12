@@ -17,7 +17,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="24"/>
         <source>Copy wallpaper address</source>
-        <translation>Następna tapeta</translation>
+        <translation>Kopiuj adres tapety</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="27"/>

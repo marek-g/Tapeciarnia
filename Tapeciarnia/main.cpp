@@ -1,13 +1,12 @@
-#include "MainWindow.h"
+#include "TrayIcon.h"
 #include <QApplication>
 #include <QLibraryInfo>
 #include <QMessageBox>
+#include <QShowEvent>
 #include <QTranslator>
 
 int main(int argc, char *argv[])
 {
-    Q_INIT_RESOURCE(Tapeciarnia);
-
     QApplication a(argc, argv);
 
     QTranslator qtTranslator;
@@ -16,7 +15,7 @@ int main(int argc, char *argv[])
     a.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
-    myappTranslator.load(":/translations/Tapeciarnia_" + QLocale::system().name());
+    myappTranslator.load("translations/Tapeciarnia_" + QLocale::system().name());
     a.installTranslator(&myappTranslator);
 
     if (!QSystemTrayIcon::isSystemTrayAvailable()) {
@@ -28,7 +27,8 @@ int main(int argc, char *argv[])
 
     QApplication::setQuitOnLastWindowClosed(false);
 
-    MainWindow w;
+    TrayIcon trayIcon;
+    trayIcon.show();
     
     return a.exec();
 }

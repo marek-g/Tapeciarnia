@@ -4,24 +4,38 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui widgets quick
 
 TARGET = Tapeciarnia
 TEMPLATE = app
 
 TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 
-SOURCES += main.cpp\
-        MainWindow.cpp
+SOURCES += main.cpp \
+    TrayIcon.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += \
+    TrayIcon.h
 
-FORMS    += MainWindow.ui
-
-RESOURCES += \
-    Tapeciarnia.qrc
+FORMS    +=
 
 OTHER_FILES += \
-    translations/Tapeciarnia_pl_PL.ts
+	images/tray_icon_loading.png \
+	images/tray_icon.png \
+    translations/Tapeciarnia_pl_PL.ts \
+	translations/Tapeciarnia_pl_PL.qm \
+	views/config.qml
+
+# install files
+
+InstallViewFiles.path = $${OUT_PWD}/views
+InstallViewFiles.files += views/*.qml
+
+InstallTranslationFiles.path = $${OUT_PWD}/translations
+InstallTranslationFiles.files += translations/*.ts
+InstallTranslationFiles.files += translations/*.qm
+
+InstallImageFiles.path = $${OUT_PWD}/images
+InstallImageFiles.files += images/*.png
+
+INSTALLS += InstallViewFiles InstallTranslationFiles InstallImageFiles
