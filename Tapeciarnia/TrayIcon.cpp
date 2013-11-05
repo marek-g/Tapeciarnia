@@ -3,14 +3,20 @@
 #include <QApplication>
 #include <QMenu>
 #include <QQuickView>
+#include <QQmlContext>
+
+#include "ViewModels/SettingsViewModel.h"
+#include "ViewModels/SourceViewModel.h"
 
 
 TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0)
 {
+    _settingsViewModel = new SettingsViewModel();
 }
 
 TrayIcon::~TrayIcon()
 {
+    delete _settingsViewModel;
 }
 
 void TrayIcon::show()
@@ -70,8 +76,16 @@ void TrayIcon::toggleConfigView()
     if (_configView == 0)
     {
         _configView = new QQuickView();
+
+        QList<QObject*> *sources = new QList<QObject*>();
+        sources->append(new SourceViewModel(tr("http://wallpaperswide.com/black_and_white-desktop-wallpapers.html"), 20, tr("black and white")));
+        sources->append(new SourceViewModel(tr("http://wallpaperswide.com/travel-desktop-wallpapers.html"), 30, tr("travel")));
+        _settingsViewModel->setSources(*sources);
+
+        _configView->rootContext()->setContextProperty("dataContext", _settingsViewModel);
+
         _configView->setSource(QUrl::fromLocalFile("views/config.qml"));
-        _configView->setResizeMode(QQuickView::SizeViewToRootObject);
+        _configView->setResizeMode(QQuickView::SizeRootObjectToView);
     }
 
     if (_configView->isVisible())

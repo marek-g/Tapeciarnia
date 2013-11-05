@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QSystemTrayIcon>
 
+#include "ViewModels/SettingsViewModel.h"
+
 class QMenu;
 class QQuickView;
 
@@ -30,6 +32,7 @@ private:
     QSystemTrayIcon *_trayIcon;
     QMenu *_trayIconMenu;
     QQuickView *_configView;
+    SettingsViewModel *_settingsViewModel;
 };
 
 #endif // TRAYICON_H

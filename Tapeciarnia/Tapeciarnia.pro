@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     TrayIcon.cpp
 
 HEADERS  += \
-    TrayIcon.h
+    TrayIcon.h \
+    ViewModels/SettingsViewModel.h \
+    ViewModels/SourceViewModel.h
 
 FORMS    +=
 
