@@ -4,6 +4,10 @@
 #include <QMessageBox>
 #include <QShowEvent>
 #include <QTranslator>
+#include <QtQml>
+
+#include "ViewModels/SettingsViewModel.h"
+#include "ViewModels/SourceViewModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -30,5 +34,9 @@ int main(int argc, char *argv[])
     TrayIcon trayIcon;
     trayIcon.show();
     
+    // register QML types
+    qmlRegisterType<SourceViewModel>("SourceViewModel", 1, 0, "SourceViewModel");
+    qmlRegisterType<SettingsViewModel>("SettingsViewModel", 1, 0, "SettingsViewModel");
+
     return a.exec();
 }

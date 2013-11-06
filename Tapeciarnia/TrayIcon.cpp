@@ -77,9 +77,11 @@ void TrayIcon::toggleConfigView()
     {
         _configView = new QQuickView();
 
-        QList<QObject*> *sources = new QList<QObject*>();
+        QList<SourceViewModel*> *sources = new QList<SourceViewModel*>();
         sources->append(new SourceViewModel(tr("http://wallpaperswide.com/black_and_white-desktop-wallpapers.html"), 20, tr("black and white")));
         sources->append(new SourceViewModel(tr("http://wallpaperswide.com/travel-desktop-wallpapers.html"), 30, tr("travel")));
+        sources->at(0)->setProperty("Url", QVariant("Marek"));
+
         _settingsViewModel->setSources(*sources);
 
         _configView->rootContext()->setContextProperty("dataContext", _settingsViewModel);

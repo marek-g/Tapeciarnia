@@ -12,6 +12,8 @@ class SourceViewModel : public QObject {
 
 public:
 
+    SourceViewModel() { }
+
     SourceViewModel(QString &url, int weight, QString &description) :
         _url(url), _weight(weight), _description(description)
     {

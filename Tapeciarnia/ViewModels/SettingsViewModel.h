@@ -3,30 +3,61 @@
 
 #include <QObject>
 #include <QList>
+#include <QQmlListProperty>
+
+#include "SourceViewModel.h"
 
 class SettingsViewModel : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(QList<QObject*> Sources READ Sources WRITE setSources NOTIFY SourcesChanged)
+    Q_PROPERTY(QQmlListProperty<SourceViewModel> Sources READ Sources NOTIFY SourcesChanged)
+    Q_PROPERTY(int ChangeEveryMinutes READ ChangeEveryMinutes WRITE setChangeEveryMinutes NOTIFY ChangeEveryMinutesChanged)
 
 public:
 
-    QList<QObject*> Sources() { return _sources; }
+    SettingsViewModel() :
+        _changeEveryMinutes(30)
+    { }
 
-    void setSources(QList<QObject*> &sources) {
+    QQmlListProperty<SourceViewModel> Sources() { return QQmlListProperty<SourceViewModel>(this, _sources); }
+
+    void setSources(QList<SourceViewModel*> &sources) {
         if (_sources != sources) {
             _sources = sources;
             SourcesChanged();
         }
     }
 
+    int ChangeEveryMinutes() {
+        return _changeEveryMinutes;
+    }
+
+    void setChangeEveryMinutes(int changeEveryMinutes) {
+        if (_changeEveryMinutes != changeEveryMinutes) {
+            _changeEveryMinutes = changeEveryMinutes;
+            ChangeEveryMinutesChanged();
+        }
+    }
+
+    Q_INVOKABLE void addNewSource() {
+        _sources.append(new SourceViewModel(tr("http://"), 10, tr("")));
+        SourcesChanged();
+    }
+
+    Q_INVOKABLE void deleteSource(int index) {
+        _sources.removeAt(index);
+        SourcesChanged();
+    }
+
 signals:
 
     void SourcesChanged();
+    void ChangeEveryMinutesChanged();
 
 private:
 
-    QList<QObject*> _sources;
+    QList<SourceViewModel*> _sources;
+    int _changeEveryMinutes;
 
 };
 

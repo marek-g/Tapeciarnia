@@ -26,7 +26,8 @@ OTHER_FILES += \
 	images/tray_icon.png \
     translations/Tapeciarnia_pl_PL.ts \
 	translations/Tapeciarnia_pl_PL.qm \
-	views/config.qml
+	views/config.qml \
+    views/edit_source_dialog.qml
 
 # install files
 
