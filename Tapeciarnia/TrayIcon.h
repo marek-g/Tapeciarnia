@@ -4,10 +4,13 @@
 #include <QObject>
 #include <QSystemTrayIcon>
 
+#include "TapeciarniaQMLWindow.h"
+
 #include "ViewModels/SettingsViewModel.h"
 
 class QMenu;
 class QQuickView;
+class QQuickCloseEvent;
 
 class TrayIcon : public QObject
 {
@@ -22,6 +25,7 @@ public:
 private slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void toggleConfigView();
+    void configViewClosing();
     void copyWallpaperAddress();
     void nextWallpaper();
     void quit();
@@ -31,7 +35,7 @@ private:
 
     QSystemTrayIcon *_trayIcon;
     QMenu *_trayIconMenu;
-    QQuickView *_configView;
+    TapeciarniaQMLWindow *_configView;
     SettingsViewModel *_settingsViewModel;
 };
 

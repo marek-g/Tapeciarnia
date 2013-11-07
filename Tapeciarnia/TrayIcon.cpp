@@ -3,7 +3,10 @@
 #include <QApplication>
 #include <QMenu>
 #include <QQuickView>
+#include <QQuickWindow>
 #include <QQmlContext>
+
+#include "TapeciarniaQMLWindow.h"
 
 #include "ViewModels/SettingsViewModel.h"
 #include "ViewModels/SourceViewModel.h"
@@ -12,10 +15,20 @@
 TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0)
 {
     _settingsViewModel = new SettingsViewModel();
+    _settingsViewModel->loadFromFile();
 }
 
 TrayIcon::~TrayIcon()
 {
+    if (_trayIcon != 0) {
+        _trayIcon->hide();
+        delete _trayIcon;
+    }
+
+    if (_trayIconMenu != 0) {
+        delete _trayIconMenu;
+    }
+
     delete _settingsViewModel;
 }
 
@@ -75,14 +88,9 @@ void TrayIcon::toggleConfigView()
 {
     if (_configView == 0)
     {
-        _configView = new QQuickView();
+        _configView = new TapeciarniaQMLWindow();
 
-        QList<SourceViewModel*> *sources = new QList<SourceViewModel*>();
-        sources->append(new SourceViewModel(tr("http://wallpaperswide.com/black_and_white-desktop-wallpapers.html"), 20, tr("black and white")));
-        sources->append(new SourceViewModel(tr("http://wallpaperswide.com/travel-desktop-wallpapers.html"), 30, tr("travel")));
-        sources->at(0)->setProperty("Url", QVariant("Marek"));
-
-        _settingsViewModel->setSources(*sources);
+        connect(_configView, &TapeciarniaQMLWindow::windowClosing, this, &TrayIcon::configViewClosing);
 
         _configView->rootContext()->setContextProperty("dataContext", _settingsViewModel);
 
@@ -98,6 +106,11 @@ void TrayIcon::toggleConfigView()
     {
         _configView->show();
     }
+}
+
+void TrayIcon::configViewClosing()
+{
+    _settingsViewModel->saveToFile();
 }
 
 void TrayIcon::copyWallpaperAddress()

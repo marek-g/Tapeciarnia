@@ -17,7 +17,8 @@ SOURCES += main.cpp \
 HEADERS  += \
     TrayIcon.h \
     ViewModels/SettingsViewModel.h \
-    ViewModels/SourceViewModel.h
+    ViewModels/SourceViewModel.h \
+    TapeciarniaQMLWindow.h
 
 FORMS    +=
 
