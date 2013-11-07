@@ -15,6 +15,10 @@ Item {
                                   duration: 400; from: 0; to: 1;
                                   easing.type: Easing.InOutQuad ; running: true }
 
+    Component.onCompleted: {
+        url.forceActiveFocus()
+    }
+
     // This rectange is the a overlay to partially show the parent through it
     // and clicking outside of the 'dialog' popup will do 'nothing'
     Rectangle {
@@ -32,16 +36,18 @@ Item {
     // This rectangle is the actual popup
     Rectangle {
         id: dialogWindow
-        width: 500
+        width: parent.width - 100
         height: 200
         anchors.centerIn: parent
 
         Column {
-            width: 450
+            width: parent.width - 40
             spacing: 6
             anchors.centerIn: parent
 
             Row {
+                width: parent.width
+
                 Text {
                     width: 100
                     text: "URL:"
@@ -49,12 +55,14 @@ Item {
 
                 TextField {
                     id: url
-                    width: 350
+                    width: parent.width - 106
                     text: dataContext.Sources[index].Url
                 }
             }
 
             Row {
+                width: parent.width
+
                 Text {
                     width: 100
                     text: "Weight:"
@@ -62,13 +70,15 @@ Item {
 
                 TextField {
                     id: weight
-                    width: 350
+                    width: parent.width - 106
                     text:  dataContext.Sources[index].Weight
                     validator: IntValidator {}
                 }
             }
 
             Row {
+                width: parent.width
+
                 Text {
                     width: 100
                     text: "Description:"
@@ -76,7 +86,7 @@ Item {
 
                 TextField {
                     id: description
-                    width: 350
+                    width: parent.width - 106
                     text:  dataContext.Sources[index].Description
                 }
             }
@@ -84,7 +94,9 @@ Item {
             Rectangle { width: 1; height: 30 }
 
             Row {
-                Rectangle { width: 100; height: 1 }
+                width: parent.width
+
+                Rectangle { width: (parent.width - 300)/2; height: 1 }
 
                 Button {
                     text: "OK"

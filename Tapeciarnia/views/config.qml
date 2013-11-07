@@ -4,7 +4,7 @@ import QtQuick.Controls 1.0
 Item {
     id: mainWindow
     width: 600
-    height: 270
+    height: 300
 
     Rectangle {
         anchors {
@@ -14,11 +14,13 @@ Item {
 
         Column {
             width: parent.width
+            height: parent.height
             spacing: 20
 
             TableView {
                 id: tableSources
                 width: parent.width
+                height: parent.height - 90
 
                 TableViewColumn{ role: "Url"  ; title: "URL" ; width: 400 }
                 TableViewColumn{ role: "Weight" ; title: "Weight" ; width: 50 }
@@ -29,8 +31,10 @@ Item {
 
             Row {
                 width: parent.width
+                height: 25
 
                 Button {
+                    width: parent.width / 3
                     text: "New"
                     onClicked: {
                         var component = Qt.createComponent("add_new_dialog.qml");
@@ -46,6 +50,7 @@ Item {
                 }
 
                 Button {
+                    width: parent.width / 3
                     text: "Edit"
                     onClicked: {
                         var component = Qt.createComponent("edit_source_dialog.qml");
@@ -62,6 +67,7 @@ Item {
                 }
 
                 Button {
+                    width: parent.width / 3
                     text: "Delete"
                     onClicked: {
                         var component = Qt.createComponent("confirm_delete_dialog.qml");
@@ -79,6 +85,7 @@ Item {
             }
 
             Row {
+                height: 25
                 spacing: 15
 
                 Text {
@@ -87,6 +94,7 @@ Item {
 
                 TextField {
                     id: changeEveryMinutesTextField
+                    width: 80
                     text: dataContext.ChangeEveryMinutes
                     validator: IntValidator {}
                     onTextChanged: dataContext.ChangeEveryMinutes = text

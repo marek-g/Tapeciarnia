@@ -96,6 +96,9 @@ void TrayIcon::toggleConfigView()
 
         _configView->setSource(QUrl::fromLocalFile("views/config.qml"));
         _configView->setResizeMode(QQuickView::SizeRootObjectToView);
+
+        _configView->setMinimumWidth(500);
+        _configView->setMinimumHeight(200);
     }
 
     if (_configView->isVisible())
