@@ -31,10 +31,17 @@ Item {
                 width: parent.width
 
                 Button {
-                    text: "Add"
+                    text: "New"
                     onClicked: {
-                        dataContext.addNewSource()
-                        tableSources.currentRow = tableSources.rowCount - 1
+                        var component = Qt.createComponent("add_new_dialog.qml");
+                        if (component.status == Component.Error) {
+                            console.debug("Error:"+ component.errorString() );
+                            return;
+                        }
+                        component.createObject(mainWindow,
+                                               {
+                                                   dataContext: dataContext
+                                               });
                     }
                 }
 
@@ -56,7 +63,18 @@ Item {
 
                 Button {
                     text: "Delete"
-                    onClicked: dataContext.deleteSource(tableSources.currentRow)
+                    onClicked: {
+                        var component = Qt.createComponent("confirm_delete_dialog.qml");
+                        if (component.status == Component.Error) {
+                            console.debug("Error:"+ component.errorString() );
+                            return;
+                        }
+                        component.createObject(mainWindow,
+                                               {
+                                                   dataContext: dataContext,
+                                                   index: tableSources.currentRow
+                                               });
+                    }
                 }
             }
 

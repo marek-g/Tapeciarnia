@@ -39,8 +39,8 @@ public:
         }
     }
 
-    Q_INVOKABLE void addNewSource() {
-        _sources.append(new SourceViewModel(tr("http://"), 10, tr("")));
+    Q_INVOKABLE void addNewSource(const QString &url, int weight, const QString &description) {
+        _sources.append(new SourceViewModel(url, weight, description));
         SourcesChanged();
     }
 

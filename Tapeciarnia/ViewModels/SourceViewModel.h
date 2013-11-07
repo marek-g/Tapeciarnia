@@ -14,7 +14,7 @@ public:
 
     SourceViewModel() { }
 
-    SourceViewModel(QString &url, int weight, QString &description) :
+    SourceViewModel(const QString &url, int weight, const QString &description) :
         _url(url), _weight(weight), _description(description)
     {
     }

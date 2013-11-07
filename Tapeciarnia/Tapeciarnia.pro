@@ -27,7 +27,9 @@ OTHER_FILES += \
     translations/Tapeciarnia_pl_PL.ts \
 	translations/Tapeciarnia_pl_PL.qm \
 	views/config.qml \
-    views/edit_source_dialog.qml
+    views/edit_source_dialog.qml \
+    views/confirm_delete_dialog.qml \
+    views/add_new_dialog.qml
 
 # install files
 
