@@ -105,6 +105,7 @@ void TrayIcon::toggleConfigView()
     else
     {
         _configView->show();
+        _configView->requestActivate();
     }
 }
 
