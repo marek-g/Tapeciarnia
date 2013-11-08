@@ -5,6 +5,7 @@
 #include <QSystemTrayIcon>
 
 #include "TapeciarniaQMLWindow.h"
+#include "ProvidersManager.h"
 
 #include "ViewModels/SettingsViewModel.h"
 
@@ -37,6 +38,7 @@ private:
     QMenu *_trayIconMenu;
     TapeciarniaQMLWindow *_configView;
     SettingsViewModel *_settingsViewModel;
+    ProvidersManager *_providersManager;
 };
 
 #endif // TRAYICON_H

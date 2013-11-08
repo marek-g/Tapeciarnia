@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets quick
+QT       += core gui widgets quick webkit webkitwidgets
 
 TARGET = Tapeciarnia
 TEMPLATE = app
@@ -12,13 +12,18 @@ TEMPLATE = app
 TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 
 SOURCES += main.cpp \
-    TrayIcon.cpp
+    TrayIcon.cpp \
+    Providers/TinyXML/tinyxml2.cpp
 
 HEADERS  += \
     TrayIcon.h \
     ViewModels/SettingsViewModel.h \
     ViewModels/SourceViewModel.h \
-    TapeciarniaQMLWindow.h
+    TapeciarniaQMLWindow.h \
+    Providers/IWallpaperProvider.h \
+    Providers/WallpapersWideProvider.h \
+    ProvidersManager.h \
+    Providers/TinyXML/tinyxml2.h
 
 FORMS    +=
 

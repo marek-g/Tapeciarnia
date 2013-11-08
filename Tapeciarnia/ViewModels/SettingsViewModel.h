@@ -21,6 +21,8 @@ public:
         _changeEveryMinutes(30)
     { }
 
+    QList<SourceViewModel*> & GetSources() { return _sources; }
+
     QQmlListProperty<SourceViewModel> Sources() { return QQmlListProperty<SourceViewModel>(this, _sources); }
 
     void setSources(QList<SourceViewModel*> &sources) {

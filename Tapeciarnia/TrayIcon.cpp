@@ -16,6 +16,8 @@ TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0)
 {
     _settingsViewModel = new SettingsViewModel();
     _settingsViewModel->loadFromFile();
+
+    _providersManager = new ProvidersManager();
 }
 
 TrayIcon::~TrayIcon()
@@ -30,6 +32,8 @@ TrayIcon::~TrayIcon()
     }
 
     delete _settingsViewModel;
+
+    delete _providersManager;
 }
 
 void TrayIcon::show()
@@ -123,6 +127,8 @@ void TrayIcon::copyWallpaperAddress()
 
 void TrayIcon::nextWallpaper()
 {
+    _providersManager->DownloadRandomImage(_settingsViewModel->GetSources(),
+                                           1024, 768);
 }
 
 void TrayIcon::quit()
