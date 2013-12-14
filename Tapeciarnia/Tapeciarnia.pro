@@ -12,8 +12,7 @@ TEMPLATE = app
 TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 
 SOURCES += main.cpp \
-    TrayIcon.cpp \
-    Providers/TinyXML/tinyxml2.cpp
+    TrayIcon.cpp
 
 HEADERS  += \
     TrayIcon.h \

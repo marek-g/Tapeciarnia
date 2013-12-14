@@ -29,7 +29,7 @@ public:
 
     virtual QString GetDescription() = 0;
 
-    virtual bool IsAddressSupported(QString &url) = 0;
+    virtual bool IsAddressSupported(const QString &url) = 0;
 
     virtual WallpaperResult DownloadRandomImage(WallpaperParameters parameters) = 0;
 

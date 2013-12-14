@@ -80,7 +80,7 @@ private:
         return 0;
     }
 
-    IWallpaperProvider *GetProviderForUrl(QString &url)
+    IWallpaperProvider *GetProviderForUrl(const QString &url)
     {
         for (int i = 0; i < (int)_providers.size(); i++)
         {

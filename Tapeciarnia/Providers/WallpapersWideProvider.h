@@ -11,7 +11,6 @@
 #include <QtWebKitWidgets/QWebFrame>
 
 #include "IWallpaperProvider.h"
-#include "TinyXML/tinyxml2.h"
 
 class WallpapersWideProvider : public QObject, IWallpaperProvider
 {
@@ -24,7 +23,7 @@ class WallpapersWideProvider : public QObject, IWallpaperProvider
         return "http://wallpaperswide.com/";
     }
 
-    virtual bool IsAddressSupported(QString &url)
+    virtual bool IsAddressSupported(const QString &url)
     {
         if (url.startsWith("http://wallpaperswide.com/") || url.startsWith("https://wallpaperswide.com/"))
         {
@@ -39,8 +38,8 @@ class WallpapersWideProvider : public QObject, IWallpaperProvider
         QString strData(data);
         int len = strData.length();
 
-        tinyxml2::XMLDocument doc;
-        doc.Parse(data.data());
+        //tinyxml2::XMLDocument doc;
+        //doc.Parse(data.data());
 
         QWebPage page;
         page.mainFrame()->setHtml("<html></html>");
