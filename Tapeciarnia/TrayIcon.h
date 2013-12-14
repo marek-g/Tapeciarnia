@@ -34,12 +34,17 @@ private slots:
 
 private:
     void createTrayIcon();
+    void updateToolTip();
 
     QSystemTrayIcon *_trayIcon;
     QMenu *_trayIconMenu;
     TapeciarniaQMLWindow *_configView;
     SettingsViewModel *_settingsViewModel;
     ProvidersManager *_providersManager;
+
+    QString _currentUrl;
+    QString _currentDescription;
+    QString _currentName;
 };
 
 #endif // TRAYICON_H

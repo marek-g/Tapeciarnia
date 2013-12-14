@@ -1,6 +1,7 @@
 #include "TrayIcon.h"
 
 #include <QApplication>
+#include <QClipboard>
 #include <QMenu>
 #include <QMessageBox>
 #include <QQuickView>
@@ -42,6 +43,8 @@ TrayIcon::~TrayIcon()
 void TrayIcon::show()
 {
     createTrayIcon();
+
+    nextWallpaper();
 }
 
 
@@ -83,6 +86,13 @@ void TrayIcon::createTrayIcon()
             this, &TrayIcon::iconActivated);
 
     _trayIcon->show();
+}
+
+void TrayIcon::updateToolTip()
+{
+    _trayIcon->setToolTip(_currentDescription + "\r\n" +
+                          _currentName + "\r\n" +
+                          "time to next wallpaper: ");
 }
 
 void TrayIcon::iconActivated(QSystemTrayIcon::ActivationReason reason)
@@ -139,6 +149,7 @@ void TrayIcon::showProvidersInfo()
 
 void TrayIcon::copyWallpaperAddress()
 {
+    QApplication::clipboard()->setText(_currentUrl);
 }
 
 void TrayIcon::nextWallpaper()
@@ -151,6 +162,16 @@ void TrayIcon::nextWallpaper()
                 desktopSize.height());
 
     Desktop::SetWallpaper(result.image);
+
+    _currentUrl = result.url;
+    _currentDescription = result.urlDescription;
+    _currentName = result.name;
+
+    _trayIcon->showMessage(result.urlDescription,
+                           result.name,
+                           QSystemTrayIcon::Information, 4000);
+
+    updateToolTip();
 }
 
 void TrayIcon::quit()

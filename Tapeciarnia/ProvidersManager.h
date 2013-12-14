@@ -54,7 +54,9 @@ public:
         params.prefferedHeight = prefferedHeight;
         params.url = source->Url();
 
-        return provider->DownloadRandomImage(params);
+        WallpaperResult result = provider->DownloadRandomImage(params);
+        result.urlDescription = source->Description();
+        return result;
     }
 
     QString GetProvidersInfo()

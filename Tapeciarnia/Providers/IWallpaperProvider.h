@@ -23,6 +23,11 @@ struct WallpaperResult
 
     // the url user may want to copy to clipboard
     QString url;
+
+    // (filled outside provider)
+
+    // url description taken from configuration
+    QString urlDescription;
 };
 
 

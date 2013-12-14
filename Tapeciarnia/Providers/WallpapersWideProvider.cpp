@@ -19,7 +19,6 @@ bool WallpapersWideProvider::IsAddressSupported(const QString &url)
     return false;
 }
 
-
 WallpaperResult WallpapersWideProvider::DownloadRandomImage(WallpaperParameters parameters)
 {
     QString strData = GetRandomPage(parameters.url);
@@ -98,6 +97,13 @@ WallpaperResult WallpapersWideProvider::GetRandomWallpaper(WallpaperParameters p
     {
         QString href = rxImageData.cap(1);
         QString name = rxImageData.cap(2);
+
+        // better name
+        QRegExp rxName("<h1>([^<]*)<");
+        if (rxName.indexIn(page, pos) != -1)
+        {
+            name = rxName.cap(1);
+        }
 
         if (href.endsWith("wallpapers"))
         {
