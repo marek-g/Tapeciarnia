@@ -19,7 +19,7 @@ private:
 
     QString GetRandomPage(const QString &url);
     WallpaperResult GetRandomWallpaper(WallpaperParameters parameters, const QString &page);
-    QString GetBestExtension(WallpaperParameters parameters);
+    QString GetBestImageUrl(WallpaperParameters parameters, QString imageName);
     QByteArray GetDataFromUrl(const QString &url);
 };
 

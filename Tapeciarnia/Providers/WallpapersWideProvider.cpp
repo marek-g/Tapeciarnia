@@ -101,21 +101,85 @@ WallpaperResult WallpapersWideProvider::GetRandomWallpaper(WallpaperParameters p
 
         if (href.endsWith("wallpapers"))
         {
-            result.name = name;
+            QString bestResolutionUrl = GetBestImageUrl(parameters, href);
+            if (bestResolutionUrl == 0)
+            {
+                return result;
+            }
 
-            href.remove(href.length() - 1, 1);
-            result.image = GetDataFromUrl(
-                        QString("http://wallpaperswide.com/download/") +
-                        href + GetBestExtension(parameters));
+            result.name = name;
+            result.url = QString("http://wallpaperswide.com/") +
+                    href + QString(".html");
+            result.image = GetDataFromUrl(bestResolutionUrl);
         }
     }
 
     return result;
 }
 
-QString WallpapersWideProvider::GetBestExtension(WallpaperParameters parameters)
+QString WallpapersWideProvider::GetBestImageUrl(WallpaperParameters parameters, QString imageName)
 {
-    return QString("-1024x768.jpg");
+    QString resolutionsUrl = QString("http://wallpaperswide.com/") +
+            imageName + QString(".html");
+    QByteArray data = GetDataFromUrl(resolutionsUrl);
+    QString strData(data);
+
+    // iterate through resolutions
+    int bestWidth = 0;
+    int bestHeight = 0;
+    QRegExp rxResolution("<option value=\"(\\d+)x(\\d+)\"");
+    int pos = 0;
+    while ((pos = rxResolution.indexIn(strData, pos)) != -1)
+    {
+        int width = rxResolution.cap(1).toInt();
+        int height = rxResolution.cap(2).toInt();
+
+        if (bestWidth == 0 || bestHeight == 0)
+        {
+            bestWidth = width; bestHeight = height;
+        }
+        else if (width >= parameters.prefferedWidth &&
+                 height >= parameters.prefferedHeight)
+        {
+            if (bestWidth >= parameters.prefferedWidth &&
+                bestWidth >= parameters.prefferedHeight)
+            {
+                if (width*height < bestWidth*bestHeight)
+                {
+                    bestWidth = width; bestHeight = height;
+                }
+            }
+            else
+            {
+                bestWidth = width; bestHeight = height;
+            }
+        }
+        else
+        {
+            if (width*height > bestWidth*bestHeight &&
+                width <= parameters.prefferedWidth &&
+                height <= parameters.prefferedHeight)
+            {
+                bestWidth = width; bestHeight = height;
+            }
+        }
+
+        pos += rxResolution.matchedLength();
+    }
+
+    if (bestWidth == 0 || bestHeight == 0)
+    {
+        return 0;
+    }
+
+    imageName.remove(imageName.length() - 1, 1);
+    return QString("http://wallpaperswide.com/download/") +
+            imageName +
+            QString("-") +
+            QString::number(bestWidth) +
+            QString("x") +
+            QString::number(bestHeight) +
+            QString(".jpg");
 }
 
 QByteArray WallpapersWideProvider::GetDataFromUrl(const QString &url)

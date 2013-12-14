@@ -15,9 +15,14 @@ struct WallpaperParameters
 
 struct WallpaperResult
 {
+    // for display purposes
     QString name;
 
+    // the image data
     QByteArray image;
+
+    // the url user may want to copy to clipboard
+    QString url;
 };
 
 
