@@ -141,7 +141,7 @@ void TrayIcon::copyWallpaperAddress()
 
 void TrayIcon::nextWallpaper()
 {
-    _providersManager->DownloadRandomImage(_settingsViewModel->GetSources(),
+    WallpaperResult result = _providersManager->DownloadRandomImage(_settingsViewModel->GetSources(),
                                            1024, 768);
 }
 

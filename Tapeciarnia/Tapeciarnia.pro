@@ -12,7 +12,8 @@ TEMPLATE = app
 TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 
 SOURCES += main.cpp \
-    TrayIcon.cpp
+    TrayIcon.cpp \
+    Providers/WallpapersWideProvider.cpp
 
 HEADERS  += \
     TrayIcon.h \
@@ -25,6 +26,10 @@ HEADERS  += \
     Providers/TinyXML/tinyxml2.h
 
 FORMS    +=
+
+#INCLUDEPATH += d:\Uzytkowe\dev\libs\mingw-x86\libxml2\include\libxml2\
+
+#LIBS += -Ld:\Uzytkowe\dev\libs\mingw-x86\libxml2\lib -lxml2
 
 OTHER_FILES += \
 	images/tray_icon_loading.png \

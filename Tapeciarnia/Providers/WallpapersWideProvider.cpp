@@ -1,0 +1,142 @@
+#include "WallpapersWideProvider.h"
+
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QEventLoop>
+
+QString WallpapersWideProvider::GetMainPageUrl()
+{
+    return "http://wallpaperswide.com/";
+}
+
+bool WallpapersWideProvider::IsAddressSupported(const QString &url)
+{
+    if (url.startsWith("http://wallpaperswide.com/") || url.startsWith("https://wallpaperswide.com/"))
+    {
+        return true;
+    }
+    return false;
+}
+
+
+WallpaperResult WallpapersWideProvider::DownloadRandomImage(WallpaperParameters parameters)
+{
+    QString strData = GetRandomPage(parameters.url);
+    return GetRandomWallpaper(parameters, strData);
+}
+
+QString WallpapersWideProvider::GetRandomPage(const QString &url)
+{
+    // get first page
+    QByteArray data = GetDataFromUrl(url);
+    QString strData(data);
+
+    // find number of pages
+    int numberOfPages = 0;
+    QRegExp rxPageNumber("/page/(\\d+)\">");
+    int pos = 0;
+    while ((pos = rxPageNumber.indexIn(strData, pos)) != -1)
+    {
+        int page = rxPageNumber.cap(1).toInt();
+        if (page > numberOfPages) numberOfPages = page;
+        pos += rxPageNumber.matchedLength();
+    }
+
+    // get random page
+    if (numberOfPages > 0)
+    {
+        int randomPage = (qrand() % numberOfPages) + 1;
+        QString randomUrl = url;
+        randomUrl.remove(".html");
+        randomUrl.append("/page/");
+        randomUrl.append(QString::number(randomPage));
+
+        data = GetDataFromUrl(url);
+        strData = QString::fromUtf8(data.data());
+    }
+
+    return strData;
+}
+
+WallpaperResult WallpapersWideProvider::GetRandomWallpaper(WallpaperParameters parameters, const QString &page)
+{
+    WallpaperResult result;
+
+    QRegExp rxBeginImage("<div class=\"thumb\">");
+
+    // find number of images
+    int numberOfImages = 0;
+    int pos = 0;
+    while ((pos = rxBeginImage.indexIn(page, pos)) != -1)
+    {
+        numberOfImages++;
+        pos += rxBeginImage.matchedLength();
+    }
+
+    if (numberOfImages == 0)
+    {
+        return result;
+    }
+
+    // rand image number
+    int randomImageNumber = (qrand() % numberOfImages) + 1;
+
+    // get pos of random image
+    pos = 0;
+    int n = 0;
+    while ((pos = rxBeginImage.indexIn(page, pos)) != -1)
+    {
+        n++;
+        if (n == randomImageNumber) break;
+        pos += rxBeginImage.matchedLength();
+    }
+
+    // read image data
+    QRegExp rxImageData("<a href=\"/([^\\.]*)\\.html\" title=\"([^\"]*)\"");
+    if (rxImageData.indexIn(page, pos) != -1)
+    {
+        QString href = rxImageData.cap(1);
+        QString name = rxImageData.cap(2);
+
+        if (href.endsWith("wallpapers"))
+        {
+            result.name = name;
+
+            href.remove(href.length() - 1, 1);
+            result.image = GetDataFromUrl(
+                        QString("http://wallpaperswide.com/download/") +
+                        href + GetBestExtension(parameters));
+        }
+    }
+
+    return result;
+}
+
+QString WallpapersWideProvider::GetBestExtension(WallpaperParameters parameters)
+{
+    return QString("-1024x768.jpg");
+}
+
+QByteArray WallpapersWideProvider::GetDataFromUrl(const QString &url)
+{
+    QNetworkAccessManager networkManager;
+
+    QNetworkRequest request(url);
+
+    request.setRawHeader("Host", "wallpaperswide.com");
+    request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+    request.setRawHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+    request.setRawHeader("Accept-Language", "en-us,en;q=0.7,pl;q=0.3");
+    //request.setRawHeader("Accept-Encoding", "gzip, deflate");
+    request.setRawHeader("DNT", "1");
+    request.setRawHeader("Referer", "http://wallpaperswide.com");
+
+    QNetworkReply *reply = networkManager.get(request);
+
+    QEventLoop eventLoop;
+    QObject::connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
+    eventLoop.exec();
+
+    return reply->readAll();
+}

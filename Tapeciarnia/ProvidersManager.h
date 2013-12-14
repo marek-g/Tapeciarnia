@@ -36,6 +36,11 @@ public:
                                         int prefferedWidth, int prefferedHeight)
     {
         SourceViewModel *source = GetRandomSource(sources);
+        if (source == 0) {
+            WallpaperResult result;
+            return result;
+        }
+
         IWallpaperProvider *provider = GetProviderForUrl(source->Url());
 
         if (provider == 0)
