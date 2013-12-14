@@ -42,14 +42,14 @@ Item {
             anchors.centerIn: parent
 
             Text {
-                text: "Do you really want to delete this address?\n" + dataContext.Sources[index].Url
+                text: qsTr("Do you really want to delete this address?\n") + dataContext.Sources[index].Url
             }
 
             Row {
                 Rectangle { width: 100; height: 1 }
 
                 Button {
-                    text: "Yes"
+                    text: qsTr("Yes")
                     onClicked: {
                         dataContext.deleteSource(index)
 
@@ -61,7 +61,7 @@ Item {
                 Rectangle { width: 100; height: 1 }
 
                 Button {
-                    text: "No"
+                    text: qsTr("No")
                     onClicked: {
                         // destroy object is needed when you dynamically create it
                         dialogComponent.destroy()

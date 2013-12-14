@@ -49,7 +49,7 @@ Item {
 
                 Text {
                     width: 100
-                    text: "URL:"
+                    text: qsTr("URL:")
                 }
 
                 TextField {
@@ -63,7 +63,7 @@ Item {
 
                 Text {
                     width: 100
-                    text: "Weight:"
+                    text: qsTr("Weight:")
                 }
 
                 TextField {
@@ -79,7 +79,7 @@ Item {
 
                 Text {
                     width: 100
-                    text: "Description:"
+                    text: qsTr("Description:")
                 }
 
                 TextField {
@@ -97,7 +97,7 @@ Item {
 
                 Button {
                     width: 100
-                    text: "OK"
+                    text: qsTr("OK")
                     onClicked: {
                         dataContext.addNewSource(url.text, parseInt(weight.text), description.text)
 
@@ -110,7 +110,7 @@ Item {
 
                 Button {
                     width: 100
-                    text: "Cancel"
+                    text: qsTr("Cancel")
                     onClicked: {
                         // destroy object is needed when you dynamically create it
                         dialogComponent.destroy()

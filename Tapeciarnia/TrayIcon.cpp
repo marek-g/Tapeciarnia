@@ -62,10 +62,10 @@ void TrayIcon::createTrayIcon()
 {
     if (_trayIcon != 0) return;
 
-    QAction *actionConfig = new QAction(tr("Config"), this);
+    QAction *actionConfig = new QAction(tr("Config..."), this);
     connect(actionConfig, &QAction::triggered, this, &TrayIcon::toggleConfigView);
 
-    QAction *actionShowProvidersInfo = new QAction(tr("Show providers info"), this);
+    QAction *actionShowProvidersInfo = new QAction(tr("Show providers info..."), this);
     connect(actionShowProvidersInfo, &QAction::triggered, this, &TrayIcon::showProvidersInfo);
 
     QAction *actionCopyWallpaperAddress = new QAction(tr("Copy wallpaper address"), this);

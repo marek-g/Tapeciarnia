@@ -22,9 +22,9 @@ Item {
                 width: parent.width
                 height: parent.height - 90
 
-                TableViewColumn{ role: "Url"  ; title: "URL" ; width: 400 }
-                TableViewColumn{ role: "Weight" ; title: "Weight" ; width: 50 }
-                TableViewColumn{ role: "Description"  ; title: "Description" ; width: 500 }
+                TableViewColumn{ role: "Url"  ; title: qsTr("URL") ; width: 400 }
+                TableViewColumn{ role: "Weight" ; title: qsTr("Weight") ; width: 50 }
+                TableViewColumn{ role: "Description"  ; title: qsTr("Description") ; width: 500 }
 
                 model: dataContext.Sources
             }
@@ -35,7 +35,7 @@ Item {
 
                 Button {
                     width: parent.width / 3
-                    text: "New"
+                    text: qsTr("New")
                     onClicked: {
                         var component = Qt.createComponent("add_new_dialog.qml");
                         if (component.status == Component.Error) {
@@ -51,7 +51,7 @@ Item {
 
                 Button {
                     width: parent.width / 3
-                    text: "Edit"
+                    text: qsTr("Edit")
                     onClicked: {
                         var component = Qt.createComponent("edit_source_dialog.qml");
                         if (component.status == Component.Error) {
@@ -68,7 +68,7 @@ Item {
 
                 Button {
                     width: parent.width / 3
-                    text: "Delete"
+                    text: qsTr("Delete")
                     onClicked: {
                         var component = Qt.createComponent("confirm_delete_dialog.qml");
                         if (component.status == Component.Error) {
@@ -89,7 +89,7 @@ Item {
                 spacing: 15
 
                 Text {
-                    text: "Change wallpaper every:"
+                    text: qsTr("Change wallpaper every:")
                 }
 
                 TextField {
@@ -101,7 +101,7 @@ Item {
                 }
 
                 Text {
-                    text: "minutes"
+                    text: qsTr("minutes")
                 }
             }
         }
