@@ -27,7 +27,7 @@ public:
 
     virtual ~IWallpaperProvider() { }
 
-    virtual QString GetDescription() = 0;
+    virtual QString GetMainPageUrl() = 0;
 
     virtual bool IsAddressSupported(const QString &url) = 0;
 

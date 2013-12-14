@@ -52,6 +52,16 @@ public:
         return provider->DownloadRandomImage(params);
     }
 
+    QString GetProvidersInfo()
+    {
+        QString urls;
+        for (int i = 0; i < (int)_providers.size(); i++)
+        {
+            urls += (_providers[i]->GetMainPageUrl() + "\n");
+        }
+        return urls;
+    }
+
 private:
 
     SourceViewModel *GetRandomSource(QList<SourceViewModel*> sources)

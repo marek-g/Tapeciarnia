@@ -6,9 +6,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QEventLoop>
-#include <QtWebKit>
-#include <QtWebKitWidgets/QWebPage>
-#include <QtWebKitWidgets/QWebFrame>
 
 #include "IWallpaperProvider.h"
 
@@ -18,7 +15,7 @@ class WallpapersWideProvider : public QObject, IWallpaperProvider
 
     virtual ~WallpapersWideProvider() { }
 
-    virtual QString GetDescription()
+    virtual QString GetMainPageUrl()
     {
         return "http://wallpaperswide.com/";
     }
@@ -41,12 +38,12 @@ class WallpapersWideProvider : public QObject, IWallpaperProvider
         //tinyxml2::XMLDocument doc;
         //doc.Parse(data.data());
 
-        QWebPage page;
+        /*QWebPage page;
         page.mainFrame()->setHtml("<html></html>");
-        int children = page.mainFrame()->children().size();
+        int children = page.mainFrame()->children().size();*/
 
 
-        page.mainFrame()->setHtml(strData);
+        //page.mainFrame()->setHtml(strData);
         //page.mainFrame()->setUrl(QUrl(parameters.url));
         /*int children = page.mainFrame()->children().size();
         QWebElement htmlElement = page.mainFrame()->findFirstElement("title");

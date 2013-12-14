@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QMenu>
+#include <QMessageBox>
 #include <QQuickView>
 #include <QQuickWindow>
 #include <QQmlContext>
@@ -49,6 +50,9 @@ void TrayIcon::createTrayIcon()
     QAction *actionConfig = new QAction(tr("Config"), this);
     connect(actionConfig, &QAction::triggered, this, &TrayIcon::toggleConfigView);
 
+    QAction *actionShowProvidersInfo = new QAction(tr("Show providers info"), this);
+    connect(actionShowProvidersInfo, &QAction::triggered, this, &TrayIcon::showProvidersInfo);
+
     QAction *actionCopyWallpaperAddress = new QAction(tr("Copy wallpaper address"), this);
     connect(actionCopyWallpaperAddress, &QAction::triggered, this, &TrayIcon::copyWallpaperAddress);
 
@@ -60,6 +64,8 @@ void TrayIcon::createTrayIcon()
 
     _trayIconMenu = new QMenu(0);
     _trayIconMenu->addAction(actionConfig);
+    _trayIconMenu->addSeparator();
+    _trayIconMenu->addAction(actionShowProvidersInfo);
     _trayIconMenu->addSeparator();
     _trayIconMenu->addAction(actionCopyWallpaperAddress);
     _trayIconMenu->addAction(actionNextWallpaper);
@@ -119,6 +125,14 @@ void TrayIcon::toggleConfigView()
 void TrayIcon::configViewClosing()
 {
     _settingsViewModel->saveToFile();
+}
+
+void TrayIcon::showProvidersInfo()
+{
+    QMessageBox msgBox;
+    msgBox.setText(tr("List of supported sites:"));
+    msgBox.setInformativeText(_providersManager->GetProvidersInfo());
+    msgBox.exec();
 }
 
 void TrayIcon::copyWallpaperAddress()

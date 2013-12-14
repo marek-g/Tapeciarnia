@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets quick webkit webkitwidgets
+QT       += core gui widgets quick
 
 TARGET = Tapeciarnia
 TEMPLATE = app

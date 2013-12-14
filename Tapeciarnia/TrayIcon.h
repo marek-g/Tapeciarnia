@@ -27,6 +27,7 @@ private slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void toggleConfigView();
     void configViewClosing();
+    void showProvidersInfo();
     void copyWallpaperAddress();
     void nextWallpaper();
     void quit();
