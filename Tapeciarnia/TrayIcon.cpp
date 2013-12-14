@@ -16,28 +16,39 @@
 #include "System/Desktop.h"
 
 
-TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0)
+TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0),
+    _timeCounter(0)
 {
     _settingsViewModel = new SettingsViewModel();
     _settingsViewModel->loadFromFile();
 
     _providersManager = new ProvidersManager();
+
+    _timer = new QTimer();
+    connect(_timer, &QTimer::timeout, this, &TrayIcon::onTimer);
+    _timer->start(10000);
 }
 
 TrayIcon::~TrayIcon()
 {
+    if (_timer != 0)
+    {
+        _timer->stop();
+        delete _timer; _timer = 0;
+    }
+
     if (_trayIcon != 0) {
         _trayIcon->hide();
-        delete _trayIcon;
+        delete _trayIcon; _trayIcon = 0;
     }
 
     if (_trayIconMenu != 0) {
-        delete _trayIconMenu;
+        delete _trayIconMenu; _trayIconMenu = 0;
     }
 
-    delete _settingsViewModel;
+    delete _settingsViewModel; _settingsViewModel = 0;
 
-    delete _providersManager;
+    delete _providersManager; _providersManager = 0;
 }
 
 void TrayIcon::show()
@@ -46,7 +57,6 @@ void TrayIcon::show()
 
     nextWallpaper();
 }
-
 
 void TrayIcon::createTrayIcon()
 {
@@ -90,9 +100,17 @@ void TrayIcon::createTrayIcon()
 
 void TrayIcon::updateToolTip()
 {
+    int secondsLeft = _settingsViewModel->ChangeEveryMinutes() * 60 -
+            _timeCounter;
+    QString strTimeLeft;
+    strTimeLeft.sprintf("%02d:%02d:%02d",
+        secondsLeft / (60*60),
+        (secondsLeft / 60) % 60,
+        (secondsLeft % 60));
+
     _trayIcon->setToolTip(_currentDescription + "\r\n" +
                           _currentName + "\r\n" +
-                          "time to next wallpaper: ");
+                          strTimeLeft);
 }
 
 void TrayIcon::iconActivated(QSystemTrayIcon::ActivationReason reason)
@@ -154,24 +172,44 @@ void TrayIcon::copyWallpaperAddress()
 
 void TrayIcon::nextWallpaper()
 {
-    QRect desktopSize = Desktop::GetSize();
+    try
+    {
+        QRect desktopSize = Desktop::GetSize();
 
-    WallpaperResult result = _providersManager->DownloadRandomImage(
-                _settingsViewModel->GetSources(),
-                desktopSize.width(),
-                desktopSize.height());
+        WallpaperResult result = _providersManager->DownloadRandomImage(
+                    _settingsViewModel->GetSources(),
+                    desktopSize.width(),
+                    desktopSize.height());
 
-    Desktop::SetWallpaper(result.image);
+        Desktop::SetWallpaper(result.image);
 
-    _currentUrl = result.url;
-    _currentDescription = result.urlDescription;
-    _currentName = result.name;
+        _currentUrl = result.url;
+        _currentDescription = result.urlDescription;
+        _currentName = result.name;
 
-    _trayIcon->showMessage(result.urlDescription,
-                           result.name,
-                           QSystemTrayIcon::Information, 4000);
+        _trayIcon->showMessage(result.urlDescription,
+                               result.name,
+                               QSystemTrayIcon::Information, 4000);
 
-    updateToolTip();
+        _timeCounter = 0;
+        updateToolTip();
+    }
+    catch (...)
+    {
+    }
+}
+
+void TrayIcon::onTimer()
+{
+    _timeCounter += 10;
+    if (_timeCounter >= _settingsViewModel->ChangeEveryMinutes()*60)
+    {
+        nextWallpaper();
+    }
+    else
+    {
+        updateToolTip();
+    }
 }
 
 void TrayIcon::quit()

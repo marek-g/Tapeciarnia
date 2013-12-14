@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSystemTrayIcon>
+#include <QTimer>
 
 #include "TapeciarniaQMLWindow.h"
 #include "ProvidersManager.h"
@@ -30,6 +31,7 @@ private slots:
     void showProvidersInfo();
     void copyWallpaperAddress();
     void nextWallpaper();
+    void onTimer();
     void quit();
 
 private:
@@ -41,6 +43,9 @@ private:
     TapeciarniaQMLWindow *_configView;
     SettingsViewModel *_settingsViewModel;
     ProvidersManager *_providersManager;
+
+    QTimer *_timer;
+    int _timeCounter;
 
     QString _currentUrl;
     QString _currentDescription;
