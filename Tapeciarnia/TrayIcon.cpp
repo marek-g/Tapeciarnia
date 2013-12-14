@@ -12,6 +12,8 @@
 #include "ViewModels/SettingsViewModel.h"
 #include "ViewModels/SourceViewModel.h"
 
+#include "System/Desktop.h"
+
 
 TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0)
 {
@@ -141,8 +143,14 @@ void TrayIcon::copyWallpaperAddress()
 
 void TrayIcon::nextWallpaper()
 {
-    WallpaperResult result = _providersManager->DownloadRandomImage(_settingsViewModel->GetSources(),
-                                           1024, 768);
+    QRect desktopSize = Desktop::GetSize();
+
+    WallpaperResult result = _providersManager->DownloadRandomImage(
+                _settingsViewModel->GetSources(),
+                desktopSize.width(),
+                desktopSize.height());
+
+    Desktop::SetWallpaper(result.image);
 }
 
 void TrayIcon::quit()

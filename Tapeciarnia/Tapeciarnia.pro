@@ -13,7 +13,8 @@ TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 
 SOURCES += main.cpp \
     TrayIcon.cpp \
-    Providers/WallpapersWideProvider.cpp
+    Providers/WallpapersWideProvider.cpp \
+    System/Desktop.cpp
 
 HEADERS  += \
     TrayIcon.h \
@@ -23,13 +24,13 @@ HEADERS  += \
     Providers/IWallpaperProvider.h \
     Providers/WallpapersWideProvider.h \
     ProvidersManager.h \
-    Providers/TinyXML/tinyxml2.h
+    System/Desktop.h
 
 FORMS    +=
 
 #INCLUDEPATH += d:\Uzytkowe\dev\libs\mingw-x86\libxml2\include\libxml2\
 
-#LIBS += -Ld:\Uzytkowe\dev\libs\mingw-x86\libxml2\lib -lxml2
+LIBS += -lgdiplus
 
 OTHER_FILES += \
 	images/tray_icon_loading.png \

@@ -52,7 +52,7 @@ QString WallpapersWideProvider::GetRandomPage(const QString &url)
         randomUrl.append("/page/");
         randomUrl.append(QString::number(randomPage));
 
-        data = GetDataFromUrl(url);
+        data = GetDataFromUrl(randomUrl);
         strData = QString::fromUtf8(data.data());
     }
 

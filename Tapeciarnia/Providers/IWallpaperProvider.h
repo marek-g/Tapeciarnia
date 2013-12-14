@@ -1,6 +1,7 @@
 #ifndef IWALLPAPERPROVIDER_H
 #define IWALLPAPERPROVIDER_H
 
+#include <QByteArray>
 #include <QString>
 
 struct WallpaperParameters
