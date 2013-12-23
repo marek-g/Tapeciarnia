@@ -1,13 +1,11 @@
 #include "ProvidersManager.h"
+#include <time.h>
 
-ProvidersManager::ProvidersManager()
+ProvidersManager::ProvidersManager() :
+    _randomGenerator(time(NULL))
 {
     // create providers
-    _providers.push_back((IWallpaperProvider *)new WallpapersWideProvider());
-
-    // initialize random number generator
-    QTime time = QTime::currentTime();
-    qsrand((uint)time.msec());
+    _providers.push_back((IWallpaperProvider *)new WallpapersWideProvider(_randomGenerator));
 }
 
 ProvidersManager::~ProvidersManager()
@@ -68,7 +66,7 @@ SourceViewModel *ProvidersManager::GetRandomSource(QList<SourceViewModel*> sourc
         return 0;
     }
 
-    int randomValue = qrand() % maxProbability;
+    int randomValue = _randomGenerator.get() % maxProbability;
 
     for (int i = 0; i < sources.size(); i++)
     {

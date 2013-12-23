@@ -9,6 +9,8 @@
 #include "Providers/WallpapersWideProvider.h"
 #include "ViewModels/SourceViewModel.h"
 
+#include "RandomGenerator.h"
+
 class ProvidersManager
 {
 
@@ -27,6 +29,8 @@ private:
     IWallpaperProvider *GetProviderForUrl(const QString &url);
 
     std::vector<IWallpaperProvider*> _providers;
+
+    RandomGenerator _randomGenerator;
 };
 
 #endif // PROVIDERSMANAGER_H

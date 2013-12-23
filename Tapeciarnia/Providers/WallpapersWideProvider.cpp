@@ -47,7 +47,7 @@ QString WallpapersWideProvider::GetRandomPage(const QString &url)
     // get random page
     if (numberOfPages > 0)
     {
-        int randomPage = (qrand() % numberOfPages) + 1;
+        int randomPage = (_randomGenerator.get() % numberOfPages) + 1;
         QString randomUrl = url;
         randomUrl.remove(".html");
         randomUrl.append("/page/");
@@ -81,7 +81,7 @@ WallpaperResult WallpapersWideProvider::GetRandomWallpaper(WallpaperParameters p
     }
 
     // rand image number
-    int randomImageNumber = (qrand() % numberOfImages) + 1;
+    int randomImageNumber = (_randomGenerator.get() % numberOfImages) + 1;
 
     // get pos of random image
     pos = 0;

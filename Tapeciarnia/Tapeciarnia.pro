@@ -25,7 +25,8 @@ HEADERS  += \
     Providers/IWallpaperProvider.h \
     Providers/WallpapersWideProvider.h \
     ProvidersManager.h \
-    System/Desktop.h
+    System/Desktop.h \
+    RandomGenerator.h
 
 FORMS    +=
 

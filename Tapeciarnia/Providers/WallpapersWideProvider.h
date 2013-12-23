@@ -4,11 +4,16 @@
 #include <QObject>
 
 #include "IWallpaperProvider.h"
+#include "../RandomGenerator.h"
 
 class WallpapersWideProvider : public QObject, IWallpaperProvider
 {
     Q_OBJECT
 
+public:
+
+    WallpapersWideProvider(RandomGenerator &randomGenerator) :
+        _randomGenerator(randomGenerator) { }
     virtual ~WallpapersWideProvider() { }
 
     virtual QString GetMainPageUrl();
@@ -21,6 +26,8 @@ private:
     WallpaperResult GetRandomWallpaper(WallpaperParameters parameters, const QString &page);
     QString GetBestImageUrl(WallpaperParameters parameters, QString imageName);
     QByteArray GetDataFromUrl(const QString &url);
+
+    RandomGenerator &_randomGenerator;
 };
 
 #endif // WALLPAPERSWIDEPROVIDER_H
