@@ -51,7 +51,12 @@ QString ProvidersManager::GetProvidersInfo()
     QString urls;
     for (int i = 0; i < (int)_providers.size(); i++)
     {
-        urls += (_providers[i]->GetMainPageUrl() + "\n");
+        QString url = _providers[i]->GetMainPageUrl();
+        urls += (QString("<a href=\"") + url + "\">" + url + "</a>");
+        if (i < (int)_providers.size() - 1)
+        {
+             urls += "<br>\n";
+        }
     }
     return urls;
 }
