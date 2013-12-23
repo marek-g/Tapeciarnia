@@ -14,7 +14,8 @@ TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 SOURCES += main.cpp \
     TrayIcon.cpp \
     Providers/WallpapersWideProvider.cpp \
-    System/Desktop.cpp
+    System/Desktop.cpp \
+    ProvidersManager.cpp
 
 HEADERS  += \
     TrayIcon.h \
