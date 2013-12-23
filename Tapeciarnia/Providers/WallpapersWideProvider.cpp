@@ -4,6 +4,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QEventLoop>
+#include <QRegExp>
 
 QString WallpapersWideProvider::GetMainPageUrl()
 {

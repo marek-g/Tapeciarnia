@@ -6,6 +6,7 @@
 #include <QString>
 
 #include <windows.h>
+#include <minmax.h>
 #include <gdiplus.h>
 
 class Desktop

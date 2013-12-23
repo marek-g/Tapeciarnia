@@ -5,8 +5,8 @@
 #include <QFile>
 
 #include <windows.h>
-#include <gdiplus.h>
 #include <stdio.h>
+#include <gdiplus.h>
 
 using namespace Gdiplus;
 
