@@ -1,10 +1,13 @@
 #include "ProvidersManager.h"
+#include "Providers/ImperiumTapetProvider.h"
+#include "Providers/WallpapersWideProvider.h"
 #include <time.h>
 
 ProvidersManager::ProvidersManager() :
     _randomGenerator(time(NULL))
 {
     // create providers
+    _providers.push_back((IWallpaperProvider *)new ImperiumTapetProvider(_randomGenerator));
     _providers.push_back((IWallpaperProvider *)new WallpapersWideProvider(_randomGenerator));
 }
 

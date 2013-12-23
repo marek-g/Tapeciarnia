@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     TrayIcon.cpp \
     Providers/WallpapersWideProvider.cpp \
     System/Desktop.cpp \
-    ProvidersManager.cpp
+    ProvidersManager.cpp \
+    Providers/ImperiumTapetProvider.cpp
 
 HEADERS  += \
     TrayIcon.h \
@@ -26,7 +27,8 @@ HEADERS  += \
     Providers/WallpapersWideProvider.h \
     ProvidersManager.h \
     System/Desktop.h \
-    RandomGenerator.h
+    RandomGenerator.h \
+    Providers/ImperiumTapetProvider.h
 
 FORMS    +=
 

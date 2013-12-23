@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "Providers/IWallpaperProvider.h"
-#include "Providers/WallpapersWideProvider.h"
 #include "ViewModels/SourceViewModel.h"
 
 #include "RandomGenerator.h"
