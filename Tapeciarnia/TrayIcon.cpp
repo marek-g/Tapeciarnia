@@ -117,7 +117,10 @@ void TrayIcon::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
     case QSystemTrayIcon::Trigger:
-        toggleConfigView();
+
+        // show config menu after left click on the icon
+        //toggleConfigView();
+
         break;
     default:
         break;
