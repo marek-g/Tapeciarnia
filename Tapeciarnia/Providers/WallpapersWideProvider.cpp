@@ -5,6 +5,7 @@
 #include <QNetworkReply>
 #include <QEventLoop>
 #include <QRegExp>
+#include <cmath>
 
 QString WallpapersWideProvider::GetMainPageUrl()
 {
@@ -131,25 +132,46 @@ QString WallpapersWideProvider::GetBestImageUrl(WallpaperParameters parameters, 
     QByteArray data = GetDataFromUrl(resolutionsUrl);
     QString strData(data);
 
+    // remove 's' from end of the name ("-wallpapers")
+    if (imageName.endsWith("wallpapers"))
+    {
+        imageName.remove(imageName.length() - 1, 1);
+    }
+
     // iterate through resolutions
     int bestWidth = 0;
     int bestHeight = 0;
-    QRegExp rxResolution("<option value=\"(\\d+)x(\\d+)\"");
+    QRegExp rxResolution(QRegExp::escape(imageName) + "-(\\d+)x(\\d+).jpg\"");
     int pos = 0;
     while ((pos = rxResolution.indexIn(strData, pos)) != -1)
     {
         int width = rxResolution.cap(1).toInt();
         int height = rxResolution.cap(2).toInt();
 
+        // first resolution is as good as any other
         if (bestWidth == 0 || bestHeight == 0)
         {
             bestWidth = width; bestHeight = height;
+
+            pos += rxResolution.matchedLength();
+            continue;
         }
-        else if (width >= parameters.prefferedWidth &&
-                 height >= parameters.prefferedHeight)
+
+        double aspectDiff = std::abs((width*1.0) / height - (parameters.prefferedWidth*1.0) / parameters.prefferedHeight);
+        double bestAspectDiff = std::abs((bestWidth*1.0) / bestHeight - (parameters.prefferedWidth*1.0) / parameters.prefferedHeight);
+
+        // skip resolutions with worst aspect than found so far
+        if (aspectDiff > bestAspectDiff)
+        {
+            pos += rxResolution.matchedLength();
+            continue;
+        }
+
+        if (width >= parameters.prefferedWidth &&
+            height >= parameters.prefferedHeight)
         {
             if (bestWidth >= parameters.prefferedWidth &&
-                bestWidth >= parameters.prefferedHeight)
+                bestHeight >= parameters.prefferedHeight)
             {
                 if (width*height < bestWidth*bestHeight)
                 {
@@ -179,7 +201,6 @@ QString WallpapersWideProvider::GetBestImageUrl(WallpaperParameters parameters, 
         return 0;
     }
 
-    imageName.remove(imageName.length() - 1, 1);
     return QString("http://wallpaperswide.com/download/") +
             imageName +
             QString("-") +
