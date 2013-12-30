@@ -1,44 +1,22 @@
-#include "ImperiumTapetProvider.h"
-
+#include "Utils.h"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QEventLoop>
-#include <QRegExp>
-#include <cmath>
 
-QString ImperiumTapetProvider::GetMainPageUrl()
-{
-    return "http://imperiumtapet.pl/";
-}
-
-bool ImperiumTapetProvider::IsAddressSupported(const QString &url)
-{
-    if (url.startsWith("http://imperiumtapet.pl/") || url.startsWith("https://imperiumtapet.pl/"))
-    {
-        return true;
-    }
-    return false;
-}
-
-WallpaperResult ImperiumTapetProvider::DownloadRandomImage(WallpaperParameters parameters)
-{
-    return WallpaperResult();
-}
-
-QByteArray ImperiumTapetProvider::GetDataFromUrl(const QString &url)
+QByteArray Utils::GetDataFromUrl(const QString &url, const QByteArray &host, const QByteArray &referer)
 {
     QNetworkAccessManager networkManager;
 
     QNetworkRequest request(url);
 
-    request.setRawHeader("Host", "imperiumtapet.pl");
+    request.setRawHeader("Host", host);
     request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
     request.setRawHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
     request.setRawHeader("Accept-Language", "en-us,en;q=0.7,pl;q=0.3");
     //request.setRawHeader("Accept-Encoding", "gzip, deflate");
     request.setRawHeader("DNT", "1");
-    request.setRawHeader("Referer", "http://imperiumtapet.pl");
+    request.setRawHeader("Referer", referer);
 
     QNetworkReply *reply = networkManager.get(request);
 

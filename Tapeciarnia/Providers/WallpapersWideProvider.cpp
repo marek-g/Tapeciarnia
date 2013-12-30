@@ -1,4 +1,5 @@
 #include "WallpapersWideProvider.h"
+#include "Utils.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -30,7 +31,7 @@ WallpaperResult WallpapersWideProvider::DownloadRandomImage(WallpaperParameters 
 QString WallpapersWideProvider::GetRandomPage(const QString &url)
 {
     // get first page
-    QByteArray data = GetDataFromUrl(url);
+    QByteArray data = Utils::GetDataFromUrl(url, "wallpaperswide.com", "http://wallpaperswide.com");
     QString strData(data);
 
     // find number of pages
@@ -53,7 +54,7 @@ QString WallpapersWideProvider::GetRandomPage(const QString &url)
         randomUrl.append("/page/");
         randomUrl.append(QString::number(randomPage));
 
-        data = GetDataFromUrl(randomUrl);
+        data = Utils::GetDataFromUrl(randomUrl, "wallpaperswide.com", "http://wallpaperswide.com");
         strData = QString::fromUtf8(data.data());
     }
 
@@ -118,7 +119,7 @@ WallpaperResult WallpapersWideProvider::GetRandomWallpaper(WallpaperParameters p
             result.name = name;
             result.url = QString("http://wallpaperswide.com/") +
                     href + QString(".html");
-            result.image = GetDataFromUrl(bestResolutionUrl);
+            result.image = Utils::GetDataFromUrl(bestResolutionUrl, "wallpaperswide.com", "http://wallpaperswide.com");
         }
     }
 
@@ -129,7 +130,7 @@ QString WallpapersWideProvider::GetBestImageUrl(WallpaperParameters parameters, 
 {
     QString resolutionsUrl = QString("http://wallpaperswide.com/") +
             imageName + QString(".html");
-    QByteArray data = GetDataFromUrl(resolutionsUrl);
+    QByteArray data = Utils::GetDataFromUrl(resolutionsUrl, "wallpaperswide.com", "http://wallpaperswide.com");
     QString strData(data);
 
     // remove 's' from end of the name ("-wallpapers")
@@ -208,27 +209,4 @@ QString WallpapersWideProvider::GetBestImageUrl(WallpaperParameters parameters, 
             QString("x") +
             QString::number(bestHeight) +
             QString(".jpg");
-}
-
-QByteArray WallpapersWideProvider::GetDataFromUrl(const QString &url)
-{
-    QNetworkAccessManager networkManager;
-
-    QNetworkRequest request(url);
-
-    request.setRawHeader("Host", "wallpaperswide.com");
-    request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-    request.setRawHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-    request.setRawHeader("Accept-Language", "en-us,en;q=0.7,pl;q=0.3");
-    //request.setRawHeader("Accept-Encoding", "gzip, deflate");
-    request.setRawHeader("DNT", "1");
-    request.setRawHeader("Referer", "http://wallpaperswide.com");
-
-    QNetworkReply *reply = networkManager.get(request);
-
-    QEventLoop eventLoop;
-    QObject::connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
-    eventLoop.exec();
-
-    return reply->readAll();
 }

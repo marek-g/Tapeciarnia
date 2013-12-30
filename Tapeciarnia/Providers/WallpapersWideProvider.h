@@ -25,7 +25,6 @@ private:
     QString GetRandomPage(const QString &url);
     WallpaperResult GetRandomWallpaper(WallpaperParameters parameters, const QString &page);
     QString GetBestImageUrl(WallpaperParameters parameters, QString imageName);
-    QByteArray GetDataFromUrl(const QString &url);
 
     RandomGenerator &_randomGenerator;
 };

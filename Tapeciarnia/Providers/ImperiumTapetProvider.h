@@ -20,6 +20,8 @@ public:
     virtual bool IsAddressSupported(const QString &url);
     virtual WallpaperResult DownloadRandomImage(WallpaperParameters parameters);
 
+    QByteArray GetDataFromUrl(const QString &url);
+
 private:
 
     RandomGenerator &_randomGenerator;
