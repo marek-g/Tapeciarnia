@@ -1,10 +1,11 @@
 #ifndef IMPERIUMTAPETPROVIDER_H
 #define IMPERIUMTAPETPROVIDER_H
 
-#include <QObject>
-
 #include "IWallpaperProvider.h"
 #include "../RandomGenerator.h"
+
+#include <QObject>
+#include <QHash>
 
 class ImperiumTapetProvider : public QObject, IWallpaperProvider
 {
@@ -20,11 +21,13 @@ public:
     virtual bool IsAddressSupported(const QString &url);
     virtual WallpaperResult DownloadRandomImage(WallpaperParameters parameters);
 
-    QByteArray GetDataFromUrl(const QString &url);
-
 private:
 
+    QString GetRandomPage(const QString &url);
+    int GetNumberOfPages(const QString &url);
+
     RandomGenerator &_randomGenerator;
+    QHash<QString, int> _numberOfPages;
 };
 
 #endif // IMPERIUMTAPETPROVIDER_H

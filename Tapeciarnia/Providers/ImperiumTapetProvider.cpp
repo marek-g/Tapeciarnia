@@ -1,4 +1,5 @@
 #include "ImperiumTapetProvider.h"
+#include "Utils.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -9,12 +10,12 @@
 
 QString ImperiumTapetProvider::GetMainPageUrl()
 {
-    return "http://imperiumtapet.pl/";
+    return "http://www.imperiumtapet.com/";
 }
 
 bool ImperiumTapetProvider::IsAddressSupported(const QString &url)
 {
-    if (url.startsWith("http://imperiumtapet.pl/") || url.startsWith("https://imperiumtapet.pl/"))
+    if (url.startsWith("http://www.imperiumtapet.com/") || url.startsWith("https://www.imperiumtapet.com/"))
     {
         return true;
     }
@@ -23,28 +24,69 @@ bool ImperiumTapetProvider::IsAddressSupported(const QString &url)
 
 WallpaperResult ImperiumTapetProvider::DownloadRandomImage(WallpaperParameters parameters)
 {
+    QString url = parameters.url;
+    if (!url.endsWith('/')) url += "/";
+
+    QString strData = GetRandomPage(parameters.url);
+
     return WallpaperResult();
 }
 
-QByteArray ImperiumTapetProvider::GetDataFromUrl(const QString &url)
+QString ImperiumTapetProvider::GetRandomPage(const QString &url)
 {
-    QNetworkAccessManager networkManager;
+    int i = GetNumberOfPages(url);
 
-    QNetworkRequest request(url);
+    return "";
+}
 
-    request.setRawHeader("Host", "imperiumtapet.pl");
-    request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-    request.setRawHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-    request.setRawHeader("Accept-Language", "en-us,en;q=0.7,pl;q=0.3");
-    //request.setRawHeader("Accept-Encoding", "gzip, deflate");
-    request.setRawHeader("DNT", "1");
-    request.setRawHeader("Referer", "http://imperiumtapet.pl");
+int ImperiumTapetProvider::GetNumberOfPages(const QString &url)
+{
+    // check in dictionary
+    if (_numberOfPages.contains(url))
+    {
+        return _numberOfPages[url];
+    }
 
-    QNetworkReply *reply = networkManager.get(request);
+    int lastWorking = 0;
+    int lastNotWorking = -1;
 
-    QEventLoop eventLoop;
-    QObject::connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
-    eventLoop.exec();
+    while (lastNotWorking == -1 || lastWorking + 1 < lastNotWorking)
+    {
+        int pageToCheck;
+        if (lastWorking == 0 && lastNotWorking == -1)
+        {
+            // initial check
+            pageToCheck = 16;
+        }
+        else if (lastNotWorking == -1)
+        {
+            pageToCheck = lastWorking * 2;
+        }
+        else
+        {
+            pageToCheck = (lastWorking + lastNotWorking) / 2;
+            if (pageToCheck <= lastWorking) pageToCheck = lastWorking + 1;
+        }
 
-    return reply->readAll();
+        QString urlToPage = url + "?page=" + QString::number(pageToCheck);
+        bool pageExists = Utils::CheckIfPageExists(urlToPage,  "www.imperiumtapet.com", "http://www.imperiumtapet.com");
+
+        if (pageExists)
+        {
+            lastWorking = pageToCheck;
+        }
+        else
+        {
+            if (lastNotWorking == -1 || pageToCheck < lastNotWorking)
+            {
+                lastNotWorking = pageToCheck;
+            }
+        }
+
+    }
+
+    // cache in dictionary
+    _numberOfPages[url] = lastWorking;
+
+    return lastWorking;
 }
