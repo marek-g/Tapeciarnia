@@ -140,73 +140,25 @@ QString WallpapersWideProvider::GetBestImageUrl(WallpaperParameters parameters, 
     }
 
     // iterate through resolutions
-    int bestWidth = 0;
-    int bestHeight = 0;
+    QList<QSize> listOfResolutions;
     QRegExp rxResolution(QRegExp::escape(imageName) + "-(\\d+)x(\\d+).jpg\"");
     int pos = 0;
     while ((pos = rxResolution.indexIn(strData, pos)) != -1)
     {
         int width = rxResolution.cap(1).toInt();
         int height = rxResolution.cap(2).toInt();
-
-        // first resolution is as good as any other
-        if (bestWidth == 0 || bestHeight == 0)
-        {
-            bestWidth = width; bestHeight = height;
-
-            pos += rxResolution.matchedLength();
-            continue;
-        }
-
-        double aspectDiff = std::abs((width*1.0) / height - (parameters.prefferedWidth*1.0) / parameters.prefferedHeight);
-        double bestAspectDiff = std::abs((bestWidth*1.0) / bestHeight - (parameters.prefferedWidth*1.0) / parameters.prefferedHeight);
-
-        // skip resolutions with worst aspect than found so far
-        if (aspectDiff > bestAspectDiff)
-        {
-            pos += rxResolution.matchedLength();
-            continue;
-        }
-
-        if (width >= parameters.prefferedWidth &&
-            height >= parameters.prefferedHeight)
-        {
-            if (bestWidth >= parameters.prefferedWidth &&
-                bestHeight >= parameters.prefferedHeight)
-            {
-                if (width*height < bestWidth*bestHeight)
-                {
-                    bestWidth = width; bestHeight = height;
-                }
-            }
-            else
-            {
-                bestWidth = width; bestHeight = height;
-            }
-        }
-        else
-        {
-            if (width*height > bestWidth*bestHeight &&
-                width <= parameters.prefferedWidth &&
-                height <= parameters.prefferedHeight)
-            {
-                bestWidth = width; bestHeight = height;
-            }
-        }
-
         pos += rxResolution.matchedLength();
+
+        listOfResolutions.push_back(QSize(width, height));
     }
 
-    if (bestWidth == 0 || bestHeight == 0)
-    {
-        return 0;
-    }
+    QSize bestResolution = Utils::ChooseBestResolution(listOfResolutions, parameters.prefferedWidth, parameters.prefferedHeight);
 
     return QString("http://wallpaperswide.com/download/") +
             imageName +
             QString("-") +
-            QString::number(bestWidth) +
+            QString::number(bestResolution.width()) +
             QString("x") +
-            QString::number(bestHeight) +
+            QString::number(bestResolution.height()) +
             QString(".jpg");
 }
