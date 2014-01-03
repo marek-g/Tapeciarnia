@@ -20,6 +20,8 @@ protected:
             case QEvent::Close:
                 emit windowClosing();
             break;
+
+            default: break;
         }
 
         return QQuickView::event(event);

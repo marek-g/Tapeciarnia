@@ -29,8 +29,8 @@ public:
         if (idx == 0) gen();
         unsigned int y = mt[idx];
         y ^= y >> 11;
-        y ^= (y << 7) & 2636928640;
-        y ^= (y << 15) & 4022730752;
+        y ^= (y << 7) & 2636928640UL;
+        y ^= (y << 15) & 4022730752UL;
         y ^= y >> 18;
         idx = (idx + 1) % length;
         return y;
@@ -42,7 +42,7 @@ public:
         {
             unsigned int y = (mt[i] & bitPow_31) + (mt[(i+1) % length] & (bitPow_31 - 1));
             mt[i] = mt[(i + 397) % length] ^ (y >> 1);
-            if (y % 2) mt[i] ^= 2567483615;
+            if (y % 2) mt[i] ^= 2567483615UL;
         }
         return;
     }

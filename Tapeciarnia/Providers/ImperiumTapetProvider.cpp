@@ -105,10 +105,12 @@ int ImperiumTapetProvider::GetNumberOfPages(const QString &url)
 
 WallpaperResult ImperiumTapetProvider::GetRandomWallpaper(WallpaperParameters parameters, const QString &page)
 {
+    (void) parameters;
+
     WallpaperResult result;
 
     // find image info on the page
-    QList<QPair<QString, QString>> lstImageInfo;
+    QList<QPair<QString, QString> > lstImageInfo;
     QRegExp rxImageInfo("<a href=\"/tapeta/([^/]*)/(\\d+)/\"");
     int pos = 0;
     while ((pos = rxImageInfo.indexIn(page, pos)) != -1)
