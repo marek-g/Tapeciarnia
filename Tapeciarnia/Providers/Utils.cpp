@@ -82,6 +82,16 @@ QByteArray Utils::GetDataFromUrl(const QString &url, const QByteArray &host, con
     QObject::connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
     eventLoop.exec();
 
+    // check for redirection
+    int errorCode = reply->error();
+    QString errorString = reply->errorString();
+    QVariant possibleRedirectUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+    QUrl redirectedTo = possibleRedirectUrl.toUrl();
+    if (!redirectedTo.isEmpty() && redirectedTo.toString() != url)
+    {
+        return GetDataFromUrl(redirectedTo.toString(), host, referer);
+    }
+
     return reply->readAll();
 }
 

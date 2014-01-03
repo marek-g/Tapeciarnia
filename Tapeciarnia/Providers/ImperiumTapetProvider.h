@@ -25,6 +25,7 @@ private:
 
     QString GetRandomPage(const QString &url);
     int GetNumberOfPages(const QString &url);
+    WallpaperResult GetRandomWallpaper(WallpaperParameters parameters, const QString &page);
 
     RandomGenerator &_randomGenerator;
     QHash<QString, int> _numberOfPages;
