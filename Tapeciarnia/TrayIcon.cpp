@@ -108,8 +108,8 @@ void TrayIcon::updateToolTip()
         (secondsLeft / 60) % 60,
         (secondsLeft % 60));
 
-    _trayIcon->setToolTip(_currentDescription + "\r\n" +
-                          _currentName + "\r\n" +
+    _trayIcon->setToolTip(_currentName + "\r\n" +
+                          _currentDescription + "\r\n" +
                           strTimeLeft);
 }
 
