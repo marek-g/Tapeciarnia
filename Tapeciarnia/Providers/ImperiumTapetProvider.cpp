@@ -149,7 +149,7 @@ WallpaperResult ImperiumTapetProvider::GetRandomWallpaper(WallpaperParameters pa
     nameFiltered.replace("-", " ");
 
     result.name = Utils::UnescapeHtml(nameFiltered);
-    result.url = QString("http://www.imperiumtapet.com/tapeta/") + lstImageInfo[randomImageNumber].first + "/" + lstImageInfo[randomImageNumber].second;
+    result.url = QString("http://www.imperiumtapet.com/tapeta/") + lstImageInfo[randomImageNumber].first + "/" + lstImageInfo[randomImageNumber].second + "/";
     result.image = Utils::GetDataFromUrl("http://www.imperiumtapet.com" + rxImageLink.cap(1),
                                          "www.imperiumtapet.com", "http://www.imperiumtapet.com");
 
