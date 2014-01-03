@@ -42,7 +42,7 @@ Item {
             anchors.centerIn: parent
 
             Text {
-                text: qsTr("Do you really want to delete this address?\n") + dataContext.Sources[index].Url
+                text: qsTr("Do you really want to delete this address?") + "\n" + dataContext.Sources[index].Url
             }
 
             Row {

@@ -137,8 +137,7 @@
     <name>confirm_delete_dialog</name>
     <message>
         <location filename="../views/confirm_delete_dialog.qml" line="45"/>
-        <source>Do you really want to delete this address?
-</source>
+        <source>Do you really want to delete this address?</source>
         <translation>Czy na pewno skasować ten adres?</translation>
     </message>
     <message>
