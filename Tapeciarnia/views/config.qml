@@ -4,7 +4,7 @@ import QtQuick.Controls 1.0
 Item {
     id: mainWindow
     width: 600
-    height: 300
+    height: 400
 
     Rectangle {
         anchors {
@@ -20,7 +20,7 @@ Item {
             TableView {
                 id: tableSources
                 width: parent.width
-                height: parent.height - 90
+                height: parent.height - 135
 
                 TableViewColumn{ role: "Url"  ; title: qsTr("URL") ; width: 400 }
                 TableViewColumn{ role: "Weight" ; title: qsTr("Weight") ; width: 50 }
@@ -102,6 +102,26 @@ Item {
 
                 Text {
                     text: qsTr("minutes")
+                }
+            }
+
+            Row {
+                height: 25
+                spacing: 15
+                anchors.right: parent.right;
+
+                Button {
+                    text: qsTr("Save")
+                    onClicked: {
+                        dataContext.acceptSettings();
+                    }
+                }
+
+                Button {
+                    text: qsTr("Cancel")
+                    onClicked: {
+                        dataContext.cancelSettings();
+                    }
                 }
             }
         }

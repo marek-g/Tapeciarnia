@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="pl_PL">
+<TS version="2.1" language="pl_PL">
 <context>
     <name>QObject</name>
     <message>
@@ -17,37 +17,37 @@
 <context>
     <name>TrayIcon</name>
     <message>
-        <location filename="../TrayIcon.cpp" line="65"/>
+        <location filename="../TrayIcon.cpp" line="66"/>
         <source>Config...</source>
         <translation>Konfiguracja...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="68"/>
+        <location filename="../TrayIcon.cpp" line="69"/>
         <source>Show providers info...</source>
         <translation>Pokaż informacje o źródłach...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="71"/>
+        <location filename="../TrayIcon.cpp" line="72"/>
         <source>Copy wallpaper address</source>
         <translation>Kopiuj adres tapety do schowka</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="74"/>
+        <location filename="../TrayIcon.cpp" line="75"/>
         <source>Next wallpaper</source>
         <translation>Następna tapeta</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="77"/>
+        <location filename="../TrayIcon.cpp" line="78"/>
         <source>&amp;Quit</source>
         <translation>&amp;Wyjdź</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="93"/>
+        <location filename="../TrayIcon.cpp" line="94"/>
         <source>Tapeciarnia</source>
         <translation>Tapeciarnia</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="163"/>
+        <location filename="../TrayIcon.cpp" line="167"/>
         <source>List of supported sites:</source>
         <translation>Lista obsługiwanych stron:</translation>
     </message>
@@ -121,6 +121,16 @@
         <location filename="../views/config.qml" line="104"/>
         <source>minutes</source>
         <translation>minut</translation>
+    </message>
+    <message>
+        <location filename="../views/config.qml" line="114"/>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <location filename="../views/config.qml" line="121"/>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>

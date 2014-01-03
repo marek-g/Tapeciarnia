@@ -20,6 +20,7 @@ TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0),
     _timeCounter(0)
 {
     _settingsViewModel = new SettingsViewModel();
+    _settingsViewModel->SetTrayIcon(this);
     _settingsViewModel->loadFromFile();
 
     _providersManager = new ProvidersManager();
@@ -141,7 +142,7 @@ void TrayIcon::toggleConfigView()
         _configView->setResizeMode(QQuickView::SizeRootObjectToView);
 
         _configView->setMinimumWidth(500);
-        _configView->setMinimumHeight(200);
+        _configView->setMinimumHeight(250);
     }
 
     if (_configView->isVisible())
@@ -157,7 +158,7 @@ void TrayIcon::toggleConfigView()
 
 void TrayIcon::configViewClosing()
 {
-    _settingsViewModel->saveToFile();
+    _settingsViewModel->loadFromFile();
 }
 
 void TrayIcon::showProvidersInfo()

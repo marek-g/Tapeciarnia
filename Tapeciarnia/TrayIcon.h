@@ -8,7 +8,7 @@
 #include "TapeciarniaQMLWindow.h"
 #include "ProvidersManager.h"
 
-#include "ViewModels/SettingsViewModel.h"
+class SettingsViewModel;
 
 class QMenu;
 class QQuickView;
@@ -24,7 +24,7 @@ public:
 
     void show();
 
-private slots:
+public slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void toggleConfigView();
     void configViewClosing();

@@ -7,7 +7,10 @@
 #include <QQmlListProperty>
 #include <QSettings>
 
+#include "../TrayIcon.h"
 #include "SourceViewModel.h"
+
+//class TrayIcon;
 
 class SettingsViewModel : public QObject {
     Q_OBJECT
@@ -18,8 +21,11 @@ class SettingsViewModel : public QObject {
 public:
 
     SettingsViewModel() :
+        _trayIcon(0),
         _changeEveryMinutes(30)
     { }
+
+    void SetTrayIcon(TrayIcon *trayIcon) { _trayIcon = trayIcon; }
 
     QList<SourceViewModel*> & GetSources() { return _sources; }
 
@@ -53,10 +59,25 @@ public:
         SourcesChanged();
     }
 
+    Q_INVOKABLE void acceptSettings() {
+        saveToFile();
+        if (_trayIcon != 0) {
+            _trayIcon->toggleConfigView();
+        }
+    }
+
+    Q_INVOKABLE void cancelSettings() {
+        loadFromFile();
+        if (_trayIcon != 0) {
+            _trayIcon->toggleConfigView();
+        }
+    }
+
     void loadFromFile() {
         QSettings settings(QApplication::applicationDirPath() + "/settings.ini", QSettings::IniFormat);
 
         _changeEveryMinutes = settings.value("ChangeEveryMinutes", 30).toInt();
+        ChangeEveryMinutesChanged();
 
         _sources.clear();
         int size = settings.beginReadArray("sources");
@@ -68,6 +89,7 @@ public:
                                 settings.value("description").toString()));
         }
         settings.endArray();
+        SourcesChanged();
     }
 
     void saveToFile() {
@@ -92,6 +114,8 @@ signals:
     void ChangeEveryMinutesChanged();
 
 private:
+
+    TrayIcon *_trayIcon;
 
     QList<SourceViewModel*> _sources;
     int _changeEveryMinutes;
