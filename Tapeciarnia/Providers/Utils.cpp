@@ -3,6 +3,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QEventLoop>
+#include <QTextDocument>
 #include <cmath>
 
 QSize Utils::ChooseBestResolution(const QList<QSize> &resolutions, int screenWidth, int screenHeight)
@@ -107,4 +108,11 @@ bool Utils::CheckIfPageExists(const QString &url, const QByteArray &host, const 
     eventLoop.exec();
 
     return reply->error() == 0;
+}
+
+QString Utils::UnescapeHtml(const QString &html)
+{
+    QTextDocument text;
+    text.setHtml(html);
+    return text.toPlainText();
 }

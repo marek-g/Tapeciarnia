@@ -116,7 +116,7 @@ WallpaperResult WallpapersWideProvider::GetRandomWallpaper(WallpaperParameters p
                 return result;
             }
 
-            result.name = name;
+            result.name = Utils::UnescapeHtml(name);
             result.url = QString("http://wallpaperswide.com/") +
                     href + QString(".html");
             result.image = Utils::GetDataFromUrl(bestResolutionUrl, "wallpaperswide.com", "http://wallpaperswide.com");
