@@ -190,8 +190,8 @@ void TrayIcon::nextWallpaper()
         _currentDescription = result.urlDescription;
         _currentName = result.name;
 
-        _trayIcon->showMessage(result.urlDescription,
-                               result.name,
+        _trayIcon->showMessage(result.name,
+                               result.urlDescription,
                                QSystemTrayIcon::Information, 4000);
 
         _timeCounter = 0;
