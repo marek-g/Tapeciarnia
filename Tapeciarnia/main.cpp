@@ -29,14 +29,14 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    QApplication::setQuitOnLastWindowClosed(false);
-
-    TrayIcon trayIcon;
-    trayIcon.show();
+    QApplication::setQuitOnLastWindowClosed(false);  
     
     // register QML types
     qmlRegisterType<SourceViewModel>("SourceViewModel", 1, 0, "SourceViewModel");
     qmlRegisterType<SettingsViewModel>("SettingsViewModel", 1, 0, "SettingsViewModel");
+
+    TrayIcon trayIcon;
+    trayIcon.show();
 
     return a.exec();
 }
