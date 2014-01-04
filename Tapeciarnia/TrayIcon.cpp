@@ -16,7 +16,10 @@
 #include "System/Desktop.h"
 
 
-TrayIcon::TrayIcon() : _trayIcon(0), _trayIconMenu(0), _configView(0),
+TrayIcon::TrayIcon() : _trayIcon(0),
+    _normalIcon(new QIcon("images/tray_icon.png")),
+    _loadingIcon(new QIcon("images/tray_icon_loading.png")),
+    _trayIconMenu(0), _configView(0),
     _timeCounter(0)
 {
     _settingsViewModel = new SettingsViewModel();
@@ -45,6 +48,14 @@ TrayIcon::~TrayIcon()
 
     if (_trayIconMenu != 0) {
         delete _trayIconMenu; _trayIconMenu = 0;
+    }
+
+    if (_normalIcon != 0) {
+        delete _normalIcon; _normalIcon = 0;
+    }
+
+    if (_loadingIcon != 0) {
+        delete _loadingIcon; _loadingIcon = 0;
     }
 
     delete _settingsViewModel; _settingsViewModel = 0;
@@ -94,7 +105,7 @@ void TrayIcon::createTrayIcon()
 
     _trayIcon = new QSystemTrayIcon(0);
     _trayIcon->setContextMenu(_trayIconMenu);
-    _trayIcon->setIcon(QIcon("images/tray_icon.png"));
+    _trayIcon->setIcon(*_normalIcon);
     _trayIcon->setToolTip(tr("Tapeciarnia"));
 
     connect(_trayIcon, &QSystemTrayIcon::activated,
@@ -197,12 +208,16 @@ void TrayIcon::nextWallpaper()
     {
         QRect desktopSize = Desktop::GetSize();
 
+        _trayIcon->setIcon(*_loadingIcon);
+
         WallpaperResult result = _providersManager->DownloadRandomImage(
                     _settingsViewModel->GetSources(),
                     desktopSize.width(),
                     desktopSize.height());
 
         Desktop::SetWallpaper(result.image);
+
+        _trayIcon->setIcon(*_normalIcon);
 
         _currentUrl = result.url;
         _currentDescription = result.urlDescription;

@@ -40,6 +40,8 @@ private:
     void updateToolTip();
 
     QSystemTrayIcon *_trayIcon;
+    QIcon *_normalIcon;
+    QIcon *_loadingIcon;
     QMenu *_trayIconMenu;
     TapeciarniaQMLWindow *_configView;
     SettingsViewModel *_settingsViewModel;
