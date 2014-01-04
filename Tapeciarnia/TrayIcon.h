@@ -28,6 +28,7 @@ public slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void toggleConfigView();
     void configViewClosing();
+    void about();
     void showProvidersInfo();
     void copyWallpaperAddress();
     void nextWallpaper();

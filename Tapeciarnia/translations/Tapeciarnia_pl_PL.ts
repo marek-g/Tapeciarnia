@@ -23,31 +23,46 @@
     </message>
     <message>
         <location filename="../TrayIcon.cpp" line="69"/>
+        <source>About...</source>
+        <translation>O programie...</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="72"/>
         <source>Show providers info...</source>
         <translation>Pokaż informacje o źródłach...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="72"/>
+        <location filename="../TrayIcon.cpp" line="75"/>
         <source>Copy wallpaper address</source>
         <translation>Kopiuj adres tapety do schowka</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="75"/>
+        <location filename="../TrayIcon.cpp" line="78"/>
         <source>Next wallpaper</source>
         <translation>Następna tapeta</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="78"/>
+        <location filename="../TrayIcon.cpp" line="81"/>
         <source>&amp;Quit</source>
         <translation>&amp;Wyjdź</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="94"/>
+        <location filename="../TrayIcon.cpp" line="98"/>
         <source>Tapeciarnia</source>
         <translation>Tapeciarnia</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="167"/>
+        <location filename="../TrayIcon.cpp" line="173"/>
+        <source>Author:</source>
+        <translation>Autor:</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="174"/>
+        <source>Compilation date:</source>
+        <translation>Data kompilacji:</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="183"/>
         <source>List of supported sites:</source>
         <translation>Lista obsługiwanych stron:</translation>
     </message>

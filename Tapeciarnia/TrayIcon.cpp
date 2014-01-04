@@ -66,6 +66,9 @@ void TrayIcon::createTrayIcon()
     QAction *actionConfig = new QAction(tr("Config..."), this);
     connect(actionConfig, &QAction::triggered, this, &TrayIcon::toggleConfigView);
 
+    QAction *actionAbout = new QAction(tr("About..."), this);
+    connect(actionAbout, &QAction::triggered, this, &TrayIcon::about);
+
     QAction *actionShowProvidersInfo = new QAction(tr("Show providers info..."), this);
     connect(actionShowProvidersInfo, &QAction::triggered, this, &TrayIcon::showProvidersInfo);
 
@@ -81,6 +84,7 @@ void TrayIcon::createTrayIcon()
     _trayIconMenu = new QMenu(0);
     _trayIconMenu->addAction(actionConfig);
     _trayIconMenu->addSeparator();
+    _trayIconMenu->addAction(actionAbout);
     _trayIconMenu->addAction(actionShowProvidersInfo);
     _trayIconMenu->addSeparator();
     _trayIconMenu->addAction(actionCopyWallpaperAddress);
@@ -161,11 +165,24 @@ void TrayIcon::configViewClosing()
     _settingsViewModel->loadFromFile();
 }
 
+void TrayIcon::about()
+{
+    QMessageBox msgBox;
+    msgBox.setText(QString("<html>") +
+                   QString("<h1><b>Tapeciarnia</b></h1><br>") +
+                   QString("<b>") + tr("Author:") + QString("</b> Marek Gibek<br>") +
+                   QString("<b>") + tr("Compilation date:") + "</b> " + __DATE__ + " " + __TIME__ +
+                   QString("<br><br></html>"));
+    msgBox.exec();
+}
+
 void TrayIcon::showProvidersInfo()
 {
     QMessageBox msgBox;
-    msgBox.setText(tr("List of supported sites:"));
-    msgBox.setInformativeText(_providersManager->GetProvidersInfo());
+    msgBox.setText(QString("<html>") +
+                   "<h2>" + tr("List of supported sites:") + "</h2><br>" +
+                   _providersManager->GetProvidersInfo() +
+                   QString("</html>"));
     msgBox.exec();
 }
 
