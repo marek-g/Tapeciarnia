@@ -14,10 +14,11 @@ TRANSLATIONS = translations/Tapeciarnia_pl_PL.ts
 SOURCES += main.cpp \
     TrayIcon.cpp \
     Providers/WallpapersWideProvider.cpp \
-    System/Desktop.cpp \
     ProvidersManager.cpp \
     Providers/ImperiumTapetProvider.cpp \
-    Providers/Utils.cpp
+    Providers/Utils.cpp \
+    System/Desktop_win32.cpp \
+    System/Desktop_unix.cpp
 
 HEADERS  += \
     TrayIcon.h \

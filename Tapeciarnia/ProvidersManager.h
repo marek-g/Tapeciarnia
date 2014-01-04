@@ -1,7 +1,6 @@
 #ifndef PROVIDERSMANAGER_H
 #define PROVIDERSMANAGER_H
 
-#include <QGlobal.h>
 #include <QTime>
 #include <vector>
 

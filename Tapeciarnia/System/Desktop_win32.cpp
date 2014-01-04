@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include "Desktop.h"
 
 #include <QApplication>
@@ -116,3 +118,5 @@ Bitmap *Desktop::RescaleBitmapToFillScreen(Bitmap *bmp)
 
     return newBitmap;
 }
+
+#endif // _WIN32
