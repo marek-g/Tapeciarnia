@@ -17,8 +17,8 @@
 
 
 TrayIcon::TrayIcon() : _trayIcon(0),
-    _normalIcon(new QIcon("images/tray_icon.png")),
-    _loadingIcon(new QIcon("images/tray_icon_loading.png")),
+    _normalIcon(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon.png")),
+    _loadingIcon(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon_loading.png")),
     _trayIconMenu(0), _configView(0),
     _timeCounter(0)
 {
@@ -153,7 +153,7 @@ void TrayIcon::toggleConfigView()
 
         _configView->rootContext()->setContextProperty("dataContext", _settingsViewModel);
 
-        _configView->setSource(QUrl::fromLocalFile("views/config.qml"));
+        _configView->setSource(QUrl::fromLocalFile(QApplication::applicationDirPath() + "/views/config.qml"));
         _configView->setResizeMode(QQuickView::SizeRootObjectToView);
 
         _configView->setMinimumWidth(500);

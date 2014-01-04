@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     a.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
-    myappTranslator.load("translations/Tapeciarnia_" + QLocale::system().name());
+    myappTranslator.load(QApplication::applicationDirPath() + "/translations/Tapeciarnia_" + QLocale::system().name());
     a.installTranslator(&myappTranslator);
 
     if (!QSystemTrayIcon::isSystemTrayAvailable()) {
