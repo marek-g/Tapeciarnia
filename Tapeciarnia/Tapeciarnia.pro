@@ -51,14 +51,21 @@ OTHER_FILES += \
 
 # install files
 
-InstallViewFiles.path = $${OUT_PWD}/views
+CONFIG(debug,debug|release) {
+    InstallViewFiles.path = $${OUT_PWD}/debug/views
+    InstallTranslationFiles.path = $${OUT_PWD}/debug/translations
+    InstallImageFiles.path = $${OUT_PWD}/debug/images
+} else {
+    InstallViewFiles.path = $${OUT_PWD}/release/views
+    InstallTranslationFiles.path = $${OUT_PWD}/release/translations
+    InstallImageFiles.path = $${OUT_PWD}/release/images
+}
+
 InstallViewFiles.files += views/*.qml
 
-InstallTranslationFiles.path = $${OUT_PWD}/translations
 InstallTranslationFiles.files += translations/*.ts
 InstallTranslationFiles.files += translations/*.qm
 
-InstallImageFiles.path = $${OUT_PWD}/images
 InstallImageFiles.files += images/*.png
 
 INSTALLS += InstallViewFiles InstallTranslationFiles InstallImageFiles
