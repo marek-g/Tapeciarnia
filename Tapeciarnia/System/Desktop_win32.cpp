@@ -43,6 +43,56 @@ static int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
    return -1;  // Failure
 }
 
+static Bitmap *RescaleBitmap(Bitmap *bmp, int destWidth, int destHeight)
+{
+    int bitmapWidth = bmp->GetWidth();
+    int bitmapHeight = bmp->GetHeight();
+
+    int srcWidth;
+    int srcHeight;
+    if (bitmapWidth*1.0 / bitmapHeight > destWidth*1.0 / destHeight)
+    {
+        srcWidth = bitmapHeight * (destWidth*1.0 / destHeight);
+        srcHeight = bitmapHeight;
+    }
+    else
+    {
+        srcWidth = bitmapWidth;
+        srcHeight = bitmapWidth * (destHeight*1.0 / destWidth);
+    }
+
+    Bitmap *newBitmap = new Bitmap(destWidth, destHeight);
+    Graphics *g = Graphics::FromImage(newBitmap);
+    g->SetInterpolationMode(InterpolationModeHighQualityBicubic);
+    Rect destRect(0, 0, destWidth, destHeight);
+    g->DrawImage(bmp, destRect,
+                 (int)((bitmapWidth - srcWidth) / 2),
+                 (int)((bitmapHeight - srcHeight) / 2),
+                 srcWidth, srcHeight, UnitPixel);
+    delete g; g = 0;
+
+    return newBitmap;
+}
+
+static void ConvertImageToBMP(const QString &src, const QString &dest,
+                              int width, int height)
+{
+    GdiplusStartupInput gdiplusStartupInput;
+    ULONG_PTR gdiplusToken;
+    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
+    Bitmap *bmp = Bitmap::FromFile(src.toStdWString().c_str());
+    Bitmap *newBitmap = RescaleBitmap(bmp, width, height);
+    delete bmp; bmp = 0;
+
+    CLSID bmpClsid;
+    GetEncoderClsid(L"image/bmp", &bmpClsid);
+    newBitmap->Save(dest.toStdWString().c_str(), &bmpClsid, NULL);
+    delete newBitmap; newBitmap = 0;
+
+    GdiplusShutdown(gdiplusToken);
+}
+
 QRect Desktop::GetSize()
 {
     return QApplication::desktop()->screenGeometry();
@@ -59,64 +109,16 @@ void Desktop::SetWallpaper(const QByteArray &image)
     file.write(image);
     file.close();
 
-    ConvertImageToBMP(wallpaperPathJPG, wallpaperPathBMP);
-
-    SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0,
-                          (void*)wallpaperPathBMP.toStdWString().c_str(),
-                          SPIF_SENDCHANGE);
-}
-
-void Desktop::ConvertImageToBMP(const QString &src, const QString &dest)
-{
-    GdiplusStartupInput gdiplusStartupInput;
-    ULONG_PTR gdiplusToken;
-    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-
-    Bitmap *bmp = Bitmap::FromFile(src.toStdWString().c_str());
-    Bitmap *newBitmap = Desktop::RescaleBitmapToFillScreen(bmp);
-    delete bmp; bmp = 0;
-
-    CLSID bmpClsid;
-    GetEncoderClsid(L"image/bmp", &bmpClsid);
-    newBitmap->Save(dest.toStdWString().c_str(), &bmpClsid, NULL);
-    delete newBitmap; newBitmap = 0;
-
-    GdiplusShutdown(gdiplusToken);
-}
-
-Bitmap *Desktop::RescaleBitmapToFillScreen(Bitmap *bmp)
-{
-    int bitmapWidth = bmp->GetWidth();
-    int bitmapHeight = bmp->GetHeight();
-
     QRect desktopSize = GetSize();
     int desktopWidth = desktopSize.width();
     int desktopHeight = desktopSize.height();
 
-    int srcWidth;
-    int srcHeight;
-    if (bitmapWidth*1.0 / bitmapHeight > desktopWidth*1.0 / desktopHeight)
-    {
-        srcWidth = bitmapHeight * (desktopWidth*1.0 / desktopHeight);
-        srcHeight = bitmapHeight;
-    }
-    else
-    {
-        srcWidth = bitmapWidth;
-        srcHeight = bitmapWidth * (desktopHeight*1.0 / desktopWidth);
-    }
+    ConvertImageToBMP(wallpaperPathJPG, wallpaperPathBMP,
+                      desktopWidth, desktopHeight);
 
-    Bitmap *newBitmap = new Bitmap(desktopWidth, desktopHeight);
-    Graphics *g = Graphics::FromImage(newBitmap);
-    g->SetInterpolationMode(InterpolationModeHighQualityBicubic);
-    Rect destRect(0, 0, desktopWidth, desktopHeight);
-    g->DrawImage(bmp, destRect,
-                 (int)((bitmapWidth - srcWidth) / 2),
-                 (int)((bitmapHeight - srcHeight) / 2),
-                 srcWidth, srcHeight, UnitPixel);
-    delete g; g = 0;
-
-    return newBitmap;
+    SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0,
+                          (void*)wallpaperPathBMP.toStdWString().c_str(),
+                          SPIF_SENDCHANGE);
 }
 
 #endif // _WIN32

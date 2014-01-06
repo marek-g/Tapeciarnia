@@ -1,4 +1,4 @@
-#ifdef __unix
+#if !_WIN32
 
 #include "Desktop.h"
 
@@ -28,5 +28,5 @@ void Desktop::SetWallpaper(const QByteArray &image)
 }
 
 
-#endif // __unix
+#endif // !_WIN32
 

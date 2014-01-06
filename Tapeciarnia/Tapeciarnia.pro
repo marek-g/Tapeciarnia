@@ -18,7 +18,7 @@ SOURCES += main.cpp \
     Providers/ImperiumTapetProvider.cpp \
     Providers/Utils.cpp \
     System/Desktop_win32.cpp \
-    System/Desktop_unix.cpp
+    System/Desktop_generic.cpp
 
 HEADERS  += \
     TrayIcon.h \
