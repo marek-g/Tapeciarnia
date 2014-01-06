@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     Providers/ImperiumTapetProvider.cpp \
     Providers/Utils.cpp \
     System/Desktop_win32.cpp \
-    System/Desktop_generic.cpp
+    System/Desktop_generic.cpp \
+    Providers/TapetyTJAProvider.cpp
 
 HEADERS  += \
     TrayIcon.h \
@@ -31,7 +32,8 @@ HEADERS  += \
     System/Desktop.h \
     RandomGenerator.h \
     Providers/ImperiumTapetProvider.h \
-    Providers/Utils.h
+    Providers/Utils.h \
+    Providers/TapetyTJAProvider.h
 
 FORMS    +=
 

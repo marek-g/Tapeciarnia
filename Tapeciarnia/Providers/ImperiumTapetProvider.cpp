@@ -1,8 +1,6 @@
 #include "ImperiumTapetProvider.h"
 #include "Utils.h"
 
-#include <QApplication>
-#include <QClipboard>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
