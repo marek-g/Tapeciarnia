@@ -1,5 +1,6 @@
 #include "ProvidersManager.h"
 #include "Providers/ImperiumTapetProvider.h"
+#include "Providers/TapeciarniaProvider.h"
 #include "Providers/TapetyTJAProvider.h"
 #include "Providers/WallpapersWideProvider.h"
 #include <time.h>
@@ -9,6 +10,7 @@ ProvidersManager::ProvidersManager() :
 {
     // create providers
     _providers.push_back((IWallpaperProvider *)new ImperiumTapetProvider(_randomGenerator));
+    _providers.push_back((IWallpaperProvider *)new TapeciarniaProvider());
     _providers.push_back((IWallpaperProvider *)new TapetyTJAProvider());
     _providers.push_back((IWallpaperProvider *)new WallpapersWideProvider(_randomGenerator));
 }

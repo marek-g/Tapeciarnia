@@ -1,17 +1,17 @@
-#ifndef TAPETYTJAPROVIDER_H
-#define TAPETYTJAPROVIDER_H
+#ifndef TAPECIARNIAPROVIDER_H
+#define TAPECIARNIAPROVIDER_H
 
 #include "IWallpaperProvider.h"
 #include <QObject>
 
-class TapetyTJAProvider : public QObject, IWallpaperProvider
+class TapeciarniaProvider : public QObject, IWallpaperProvider
 {
     Q_OBJECT
 
 public:
 
-    TapetyTJAProvider() { }
-    virtual ~TapetyTJAProvider() { }
+    TapeciarniaProvider() { }
+    virtual ~TapeciarniaProvider() { }
 
     virtual QString GetMainPageUrl();
     virtual bool IsAddressSupported(const QString &url);
@@ -19,4 +19,4 @@ public:
 
 };
 
-#endif // TAPETYTJAPROVIDER_H
+#endif // TAPECIARNIAPROVIDER_H

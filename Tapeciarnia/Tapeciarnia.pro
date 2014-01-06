@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     Providers/Utils.cpp \
     System/Desktop_win32.cpp \
     System/Desktop_generic.cpp \
-    Providers/TapetyTJAProvider.cpp
+    Providers/TapetyTJAProvider.cpp \
+    Providers/TapeciarniaProvider.cpp
 
 HEADERS  += \
     TrayIcon.h \
@@ -33,7 +34,8 @@ HEADERS  += \
     RandomGenerator.h \
     Providers/ImperiumTapetProvider.h \
     Providers/Utils.h \
-    Providers/TapetyTJAProvider.h
+    Providers/TapetyTJAProvider.h \
+    Providers/TapeciarniaProvider.h
 
 FORMS    +=
 
