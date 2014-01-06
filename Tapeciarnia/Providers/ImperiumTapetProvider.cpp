@@ -29,7 +29,7 @@ WallpaperResult ImperiumTapetProvider::DownloadRandomImage(WallpaperParameters p
     QString url = parameters.url;
     if (!url.endsWith('/')) url += "/";
 
-    QString strData = GetRandomPage(parameters.url);
+    QString strData = GetRandomPage(url);
     return GetRandomWallpaper(parameters, strData);
 }
 
