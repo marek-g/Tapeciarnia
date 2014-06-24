@@ -17,10 +17,11 @@
 
 
 TrayIcon::TrayIcon() : _trayIcon(0),
-    _normalIcon(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon.png")),
-    _loadingIcon(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon_loading.png")),
+    _iconNormal(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon.png")),
+    _iconLoading(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon_loading.png")),
+    _iconPaused(new QIcon(QApplication::applicationDirPath() + "/images/tray_icon_paused.png")),
     _trayIconMenu(0), _configView(0),
-    _timeCounter(0)
+    _timeCounter(0), _isPaused(false)
 {
     _settingsViewModel = new SettingsViewModel();
     _settingsViewModel->SetTrayIcon(this);
@@ -50,12 +51,16 @@ TrayIcon::~TrayIcon()
         delete _trayIconMenu; _trayIconMenu = 0;
     }
 
-    if (_normalIcon != 0) {
-        delete _normalIcon; _normalIcon = 0;
+    if (_iconNormal != 0) {
+        delete _iconNormal; _iconNormal = 0;
     }
 
-    if (_loadingIcon != 0) {
-        delete _loadingIcon; _loadingIcon = 0;
+    if (_iconLoading != 0) {
+        delete _iconLoading; _iconLoading = 0;
+    }
+
+    if (_iconPaused != 0) {
+        delete _iconPaused; _iconPaused = 0;
     }
 
     delete _settingsViewModel; _settingsViewModel = 0;
@@ -86,6 +91,9 @@ void TrayIcon::createTrayIcon()
     QAction *actionCopyWallpaperAddress = new QAction(tr("Copy wallpaper address"), this);
     connect(actionCopyWallpaperAddress, &QAction::triggered, this, &TrayIcon::copyWallpaperAddress);
 
+    _actionPauseOrResume = new QAction(tr("Pause"), this);
+    connect(_actionPauseOrResume, &QAction::triggered, this, &TrayIcon::pauseOrResume);
+
     QAction *actionNextWallpaper = new QAction(tr("Next wallpaper"), this);
     connect(actionNextWallpaper, &QAction::triggered, this, &TrayIcon::nextWallpaper);
 
@@ -99,19 +107,32 @@ void TrayIcon::createTrayIcon()
     _trayIconMenu->addAction(actionShowProvidersInfo);
     _trayIconMenu->addSeparator();
     _trayIconMenu->addAction(actionCopyWallpaperAddress);
+    _trayIconMenu->addAction(_actionPauseOrResume);
     _trayIconMenu->addAction(actionNextWallpaper);
     _trayIconMenu->addSeparator();
     _trayIconMenu->addAction(actionQuit);
 
     _trayIcon = new QSystemTrayIcon(0);
     _trayIcon->setContextMenu(_trayIconMenu);
-    _trayIcon->setIcon(*_normalIcon);
+    updateTrayIcon();
     _trayIcon->setToolTip(tr("Tapeciarnia"));
 
     connect(_trayIcon, &QSystemTrayIcon::activated,
             this, &TrayIcon::iconActivated);
 
     _trayIcon->show();
+}
+
+void TrayIcon::updateMenu()
+{
+    if (_isPaused)
+    {
+        _actionPauseOrResume->setText(tr("Resume"));
+    }
+    else
+    {
+        _actionPauseOrResume->setText(tr("Pause"));
+    }
 }
 
 void TrayIcon::updateToolTip()
@@ -126,7 +147,20 @@ void TrayIcon::updateToolTip()
 
     _trayIcon->setToolTip(_currentName + "\r\n" +
                           _currentDescription + "\r\n" +
-                          strTimeLeft);
+                          strTimeLeft +
+                          (_isPaused ? " " + tr("(paused)") : ""));
+}
+
+void TrayIcon::updateTrayIcon()
+{
+    if (_isPaused)
+    {
+        _trayIcon->setIcon(*_iconPaused);
+    }
+    else
+    {
+        _trayIcon->setIcon(*_iconNormal);
+    }
 }
 
 void TrayIcon::iconActivated(QSystemTrayIcon::ActivationReason reason)
@@ -202,13 +236,22 @@ void TrayIcon::copyWallpaperAddress()
     QApplication::clipboard()->setText(_currentUrl);
 }
 
+void TrayIcon::pauseOrResume()
+{
+    _isPaused = !_isPaused;
+
+    updateMenu();
+    updateToolTip();
+    updateTrayIcon();
+}
+
 void TrayIcon::nextWallpaper()
 {
     try
     {
         QRect desktopSize = Desktop::GetSize();
 
-        _trayIcon->setIcon(*_loadingIcon);
+        _trayIcon->setIcon(*_iconLoading);
 
         WallpaperResult result = _providersManager->DownloadRandomImage(
                     _settingsViewModel->GetSources(),
@@ -217,7 +260,7 @@ void TrayIcon::nextWallpaper()
 
         Desktop::SetWallpaper(result.image);
 
-        _trayIcon->setIcon(*_normalIcon);
+        updateTrayIcon();
 
         _currentUrl = result.url;
         _currentDescription = result.urlDescription;
@@ -237,7 +280,11 @@ void TrayIcon::nextWallpaper()
 
 void TrayIcon::onTimer()
 {
-    _timeCounter += 10;
+    if (!_isPaused)
+    {
+        _timeCounter += 10;
+    }
+
     if (_timeCounter >= _settingsViewModel->ChangeEveryMinutes()*60)
     {
         nextWallpaper();

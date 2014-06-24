@@ -31,24 +31,31 @@ public slots:
     void about();
     void showProvidersInfo();
     void copyWallpaperAddress();
+    void pauseOrResume();
     void nextWallpaper();
     void onTimer();
     void quit();
 
 private:
     void createTrayIcon();
+    void updateMenu();
     void updateToolTip();
+    void updateTrayIcon();
 
     QSystemTrayIcon *_trayIcon;
-    QIcon *_normalIcon;
-    QIcon *_loadingIcon;
+    QIcon *_iconNormal;
+    QIcon *_iconLoading;
+    QIcon *_iconPaused;
     QMenu *_trayIconMenu;
     TapeciarniaQMLWindow *_configView;
     SettingsViewModel *_settingsViewModel;
     ProvidersManager *_providersManager;
 
+    QAction *_actionPauseOrResume;
+
     QTimer *_timer;
     int _timeCounter;
+    bool _isPaused;
 
     QString _currentUrl;
     QString _currentDescription;

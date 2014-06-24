@@ -17,52 +17,68 @@
 <context>
     <name>TrayIcon</name>
     <message>
-        <location filename="../TrayIcon.cpp" line="66"/>
+        <location filename="../TrayIcon.cpp" line="77"/>
         <source>Config...</source>
         <translation>Konfiguracja...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="69"/>
+        <location filename="../TrayIcon.cpp" line="80"/>
         <source>About...</source>
         <translation>O programie...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="72"/>
+        <location filename="../TrayIcon.cpp" line="83"/>
         <source>Show providers info...</source>
         <translation>Pokaż informacje o źródłach...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="75"/>
+        <location filename="../TrayIcon.cpp" line="86"/>
         <source>Copy wallpaper address</source>
         <translation>Kopiuj adres tapety do schowka</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="78"/>
+        <location filename="../TrayIcon.cpp" line="89"/>
+        <location filename="../TrayIcon.cpp" line="129"/>
+        <source>Pause</source>
+        <translation>Wstrzymaj</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="92"/>
         <source>Next wallpaper</source>
         <translation>Następna tapeta</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="81"/>
+        <location filename="../TrayIcon.cpp" line="95"/>
         <source>&amp;Quit</source>
         <translation>&amp;Wyjdź</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="98"/>
+        <location filename="../TrayIcon.cpp" line="113"/>
         <source>Tapeciarnia</source>
         <translation>Tapeciarnia</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="173"/>
+        <location filename="../TrayIcon.cpp" line="125"/>
+        <source>Resume</source>
+        <translation>Kontynuuj</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="146"/>
+        <source>(paused)</source>
+        <translation>(wstrzymano)</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="201"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="174"/>
+        <location filename="../TrayIcon.cpp" line="202"/>
         <source>Compilation date:</source>
         <translation>Data kompilacji:</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="183"/>
+        <location filename="../TrayIcon.cpp" line="211"/>
         <source>List of supported sites:</source>
         <translation>Lista obsługiwanych stron:</translation>
     </message>
