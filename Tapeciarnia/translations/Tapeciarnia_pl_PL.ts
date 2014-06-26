@@ -17,68 +17,73 @@
 <context>
     <name>TrayIcon</name>
     <message>
-        <location filename="../TrayIcon.cpp" line="77"/>
+        <location filename="../TrayIcon.cpp" line="82"/>
         <source>Config...</source>
         <translation>Konfiguracja...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="80"/>
+        <location filename="../TrayIcon.cpp" line="85"/>
         <source>About...</source>
         <translation>O programie...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="83"/>
+        <location filename="../TrayIcon.cpp" line="88"/>
         <source>Show providers info...</source>
         <translation>Pokaż informacje o źródłach...</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="86"/>
+        <location filename="../TrayIcon.cpp" line="91"/>
         <source>Copy wallpaper address</source>
         <translation>Kopiuj adres tapety do schowka</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="89"/>
-        <location filename="../TrayIcon.cpp" line="129"/>
+        <location filename="../TrayIcon.cpp" line="94"/>
+        <location filename="../TrayIcon.cpp" line="138"/>
         <source>Pause</source>
         <translation>Wstrzymaj</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="92"/>
+        <location filename="../TrayIcon.cpp" line="97"/>
         <source>Next wallpaper</source>
         <translation>Następna tapeta</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="95"/>
+        <location filename="../TrayIcon.cpp" line="100"/>
         <source>&amp;Quit</source>
         <translation>&amp;Wyjdź</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="113"/>
+        <location filename="../TrayIcon.cpp" line="111"/>
+        <source>Next wallpaper from category</source>
+        <translation>Następna tapeta z kategorii</translation>
+    </message>
+    <message>
+        <location filename="../TrayIcon.cpp" line="119"/>
         <source>Tapeciarnia</source>
         <translation>Tapeciarnia</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="125"/>
+        <location filename="../TrayIcon.cpp" line="134"/>
         <source>Resume</source>
         <translation>Kontynuuj</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="146"/>
+        <location filename="../TrayIcon.cpp" line="165"/>
         <source>(paused)</source>
         <translation>(wstrzymano)</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="201"/>
+        <location filename="../TrayIcon.cpp" line="234"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="202"/>
+        <location filename="../TrayIcon.cpp" line="235"/>
         <source>Compilation date:</source>
         <translation>Data kompilacji:</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="211"/>
+        <location filename="../TrayIcon.cpp" line="244"/>
         <source>List of supported sites:</source>
         <translation>Lista obsługiwanych stron:</translation>
     </message>

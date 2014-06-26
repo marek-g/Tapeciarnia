@@ -51,6 +51,7 @@ private:
     SettingsViewModel *_settingsViewModel;
     ProvidersManager *_providersManager;
 
+    QMenu *_submenuNextWallpaperCategory;
     QAction *_actionPauseOrResume;
 
     QTimer *_timer;

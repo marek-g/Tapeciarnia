@@ -106,8 +106,9 @@ void TrayIcon::createTrayIcon()
     _trayIconMenu->addAction(actionAbout);
     _trayIconMenu->addAction(actionShowProvidersInfo);
     _trayIconMenu->addSeparator();
-    _trayIconMenu->addAction(actionCopyWallpaperAddress);
     _trayIconMenu->addAction(_actionPauseOrResume);
+    _trayIconMenu->addAction(actionCopyWallpaperAddress);
+    _submenuNextWallpaperCategory = _trayIconMenu->addMenu(tr("Next wallpaper from category"));
     _trayIconMenu->addAction(actionNextWallpaper);
     _trayIconMenu->addSeparator();
     _trayIconMenu->addAction(actionQuit);
@@ -120,11 +121,14 @@ void TrayIcon::createTrayIcon()
     connect(_trayIcon, &QSystemTrayIcon::activated,
             this, &TrayIcon::iconActivated);
 
+    updateMenu();
+
     _trayIcon->show();
 }
 
 void TrayIcon::updateMenu()
 {
+    // udpate pause / resume
     if (_isPaused)
     {
         _actionPauseOrResume->setText(tr("Resume"));
@@ -132,6 +136,17 @@ void TrayIcon::updateMenu()
     else
     {
         _actionPauseOrResume->setText(tr("Pause"));
+    }
+
+    // update categories
+    _submenuNextWallpaperCategory->clear();
+    QList<SourceViewModel*> &sources = _settingsViewModel->GetSources();
+    for (int i = 0; i < sources.size(); i++)
+    {
+        QAction *actionNextWallpaper = new QAction(sources[i]->Description(), this);
+        actionNextWallpaper->setProperty("categoryIndex", i);
+        connect(actionNextWallpaper, &QAction::triggered, this, &TrayIcon::nextWallpaper);
+        _submenuNextWallpaperCategory->addAction(actionNextWallpaper);
     }
 }
 
@@ -197,6 +212,8 @@ void TrayIcon::toggleConfigView()
     if (_configView->isVisible())
     {
         _configView->hide();
+
+        updateMenu();
     }
     else
     {
@@ -249,14 +266,30 @@ void TrayIcon::nextWallpaper()
 {
     try
     {
+        WallpaperResult result;
         QRect desktopSize = Desktop::GetSize();
 
         _trayIcon->setIcon(*_iconLoading);
 
-        WallpaperResult result = _providersManager->DownloadRandomImage(
+        QAction *action = qobject_cast<QAction *>(sender());
+        if (action && action->property("categoryIndex") != QVariant::Invalid)
+        {
+            int categoryIndex = action->property("categoryIndex").toInt();
+            QList<SourceViewModel*> sources;
+            sources.append(_settingsViewModel->GetSources()[categoryIndex]);
+
+            result = _providersManager->DownloadRandomImage(
+                    sources,
+                    desktopSize.width(),
+                    desktopSize.height());
+        }
+        else
+        {
+            result = _providersManager->DownloadRandomImage(
                     _settingsViewModel->GetSources(),
                     desktopSize.width(),
                     desktopSize.height());
+        }
 
         Desktop::SetWallpaper(result.image);
 
