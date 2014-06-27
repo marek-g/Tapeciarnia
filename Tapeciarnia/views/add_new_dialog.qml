@@ -49,6 +49,21 @@ Item {
 
                 Text {
                     width: 100
+                    text: qsTr("Enabled:")
+                }
+
+                CheckBox {
+                    id: enabled
+                    width: parent.width - 106
+                    checked: true
+                }
+            }
+
+            Row {
+                width: parent.width
+
+                Text {
+                    width: 100
                     text: qsTr("URL:")
                 }
 
@@ -99,7 +114,7 @@ Item {
                     width: 100
                     text: qsTr("OK")
                     onClicked: {
-                        dataContext.addNewSource(url.text, parseInt(weight.text), description.text)
+                        dataContext.addNewSource(enabled.checked, url.text, parseInt(weight.text), description.text)
 
                         // destroy object is needed when you dynamically create it
                         dialogComponent.destroy()

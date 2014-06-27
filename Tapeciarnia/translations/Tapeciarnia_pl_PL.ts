@@ -68,7 +68,7 @@
         <translation>Kontynuuj</translation>
     </message>
     <message>
-        <location filename="../TrayIcon.cpp" line="165"/>
+        <location filename="../TrayIcon.cpp" line="166"/>
         <source>(paused)</source>
         <translation>(wstrzymano)</translation>
     </message>
@@ -92,26 +92,31 @@
     <name>add_new_dialog</name>
     <message>
         <location filename="../views/add_new_dialog.qml" line="52"/>
+        <source>Enabled:</source>
+        <translation>Włączone:</translation>
+    </message>
+    <message>
+        <location filename="../views/add_new_dialog.qml" line="67"/>
         <source>URL:</source>
         <translation>URL:</translation>
     </message>
     <message>
-        <location filename="../views/add_new_dialog.qml" line="66"/>
+        <location filename="../views/add_new_dialog.qml" line="81"/>
         <source>Weight:</source>
         <translation>Waga:</translation>
     </message>
     <message>
-        <location filename="../views/add_new_dialog.qml" line="82"/>
+        <location filename="../views/add_new_dialog.qml" line="97"/>
         <source>Description:</source>
         <translation>Opis:</translation>
     </message>
     <message>
-        <location filename="../views/add_new_dialog.qml" line="100"/>
+        <location filename="../views/add_new_dialog.qml" line="115"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../views/add_new_dialog.qml" line="113"/>
+        <location filename="../views/add_new_dialog.qml" line="128"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
@@ -119,52 +124,57 @@
 <context>
     <name>config</name>
     <message>
-        <location filename="../views/config.qml" line="25"/>
+        <location filename="../views/config.qml" line="36"/>
+        <source>Enabled</source>
+        <translation>Włączone</translation>
+    </message>
+    <message>
+        <location filename="../views/config.qml" line="37"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="26"/>
+        <location filename="../views/config.qml" line="38"/>
         <source>Weight</source>
         <translation>Waga</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="27"/>
+        <location filename="../views/config.qml" line="39"/>
         <source>Description</source>
         <translation>Opis</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="38"/>
+        <location filename="../views/config.qml" line="50"/>
         <source>New</source>
         <translation>Nowy</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="54"/>
+        <location filename="../views/config.qml" line="66"/>
         <source>Edit</source>
         <translation>Edytuj</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="71"/>
+        <location filename="../views/config.qml" line="83"/>
         <source>Delete</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="92"/>
+        <location filename="../views/config.qml" line="104"/>
         <source>Change wallpaper every:</source>
         <translation>Zmień tapetę co:</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="104"/>
+        <location filename="../views/config.qml" line="116"/>
         <source>minutes</source>
         <translation>minut</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="114"/>
+        <location filename="../views/config.qml" line="126"/>
         <source>Save</source>
         <translation>Zapisz</translation>
     </message>
     <message>
-        <location filename="../views/config.qml" line="121"/>
+        <location filename="../views/config.qml" line="133"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
@@ -191,26 +201,31 @@
     <name>edit_source_dialog</name>
     <message>
         <location filename="../views/edit_source_dialog.qml" line="53"/>
+        <source>Enabled:</source>
+        <translation>Włączone:</translation>
+    </message>
+    <message>
+        <location filename="../views/edit_source_dialog.qml" line="68"/>
         <source>URL:</source>
         <translation>URL:</translation>
     </message>
     <message>
-        <location filename="../views/edit_source_dialog.qml" line="68"/>
+        <location filename="../views/edit_source_dialog.qml" line="83"/>
         <source>Weight:</source>
         <translation>Waga:</translation>
     </message>
     <message>
-        <location filename="../views/edit_source_dialog.qml" line="84"/>
+        <location filename="../views/edit_source_dialog.qml" line="99"/>
         <source>Description:</source>
         <translation>Opis:</translation>
     </message>
     <message>
-        <location filename="../views/edit_source_dialog.qml" line="102"/>
+        <location filename="../views/edit_source_dialog.qml" line="117"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../views/edit_source_dialog.qml" line="116"/>
+        <location filename="../views/edit_source_dialog.qml" line="132"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>

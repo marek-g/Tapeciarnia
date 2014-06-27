@@ -197,10 +197,9 @@ void TrayIcon::toggleConfigView()
     if (_configView == 0)
     {
         _configView = new TapeciarniaQMLWindow();
+        _configView->rootContext()->setContextProperty("dataContext", _settingsViewModel);
 
         connect(_configView, &TapeciarniaQMLWindow::windowClosing, this, &TrayIcon::configViewClosing);
-
-        _configView->rootContext()->setContextProperty("dataContext", _settingsViewModel);
 
         _configView->setSource(QUrl::fromLocalFile(QApplication::applicationDirPath() + "/views/config.qml"));
         _configView->setResizeMode(QQuickView::SizeRootObjectToView);

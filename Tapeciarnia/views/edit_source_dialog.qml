@@ -50,6 +50,21 @@ Item {
 
                 Text {
                     width: 100
+                    text: qsTr("Enabled:")
+                }
+
+                CheckBox {
+                    id: enabled
+                    width: parent.width - 106
+                    checked: dataContext.Sources[index].Enabled
+                }
+            }
+
+            Row {
+                width: parent.width
+
+                Text {
+                    width: 100
                     text: qsTr("URL:")
                 }
 
@@ -101,6 +116,7 @@ Item {
                 Button {
                     text: qsTr("OK")
                     onClicked: {
+                        dataContext.Sources[index].Enabled = enabled.checked
                         dataContext.Sources[index].Url = url.text
                         dataContext.Sources[index].Weight = parseInt(weight.text)
                         dataContext.Sources[index].Description = description.text

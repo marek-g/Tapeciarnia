@@ -3,8 +3,19 @@ import QtQuick.Controls 1.0
 
 Item {
     id: mainWindow
-    width: 600
-    height: 400
+    width: 720
+    height: 500
+
+    Component {
+        id: checkBoxDelegate
+        Item {
+            CheckBox {
+                id: checkbox_ok
+                enabled: false
+                checked: model.Enabled
+            }
+        }
+    }
 
     Rectangle {
         anchors {
@@ -22,6 +33,7 @@ Item {
                 width: parent.width
                 height: parent.height - 135
 
+                TableViewColumn{ role: "Enabled"; title: qsTr("Enabled"); width: 55; delegate: checkBoxDelegate }
                 TableViewColumn{ role: "Url"  ; title: qsTr("URL") ; width: 400 }
                 TableViewColumn{ role: "Weight" ; title: qsTr("Weight") ; width: 50 }
                 TableViewColumn{ role: "Description"  ; title: qsTr("Description") ; width: 500 }

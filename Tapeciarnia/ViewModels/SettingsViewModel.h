@@ -49,8 +49,8 @@ public:
         }
     }
 
-    Q_INVOKABLE void addNewSource(const QString &url, int weight, const QString &description) {
-        _sources.append(new SourceViewModel(url, weight, description));
+    Q_INVOKABLE void addNewSource(bool enabled, const QString &url, int weight, const QString &description) {
+        _sources.append(new SourceViewModel(enabled, url, weight, description));
         SourcesChanged();
     }
 
@@ -84,6 +84,7 @@ public:
         for (int i = 0; i < size; i++) {
             settings.setArrayIndex(i);
             _sources.append(new SourceViewModel(
+                                !settings.value("disabled").toBool(),
                                 settings.value("url").toString(),
                                 settings.value("weight").toInt(),
                                 settings.value("description").toString()));
@@ -100,6 +101,7 @@ public:
         settings.beginWriteArray("sources", _sources.length());
         for (int i = 0; i < _sources.length(); i++) {
             settings.setArrayIndex(i);
+            settings.setValue("disabled", !_sources.at(i)->Enabled());
             settings.setValue("url", _sources.at(i)->Url());
             settings.setValue("weight", _sources.at(i)->Weight());
             settings.setValue("description", _sources.at(i)->Description());

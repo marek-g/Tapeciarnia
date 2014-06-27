@@ -6,6 +6,7 @@
 class SourceViewModel : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(bool Enabled READ Enabled WRITE setEnabled NOTIFY EnabledChanged)
     Q_PROPERTY(QString Url READ Url WRITE setUrl NOTIFY UrlChanged)
     Q_PROPERTY(int Weight READ Weight WRITE setWeight NOTIFY WeightChanged)
     Q_PROPERTY(QString Description READ Description WRITE setDescription NOTIFY DescriptionChanged)
@@ -14,9 +15,18 @@ public:
 
     SourceViewModel() { }
 
-    SourceViewModel(const QString &url, int weight, const QString &description) :
-        _url(url), _weight(weight), _description(description)
+    SourceViewModel(bool enabled, const QString &url, int weight, const QString &description) :
+        _enabled(enabled), _url(url), _weight(weight), _description(description)
     {
+    }
+
+    bool Enabled() { return _enabled; }
+
+    void setEnabled(bool enabled) {
+        if (_enabled != enabled) {
+            _enabled = enabled;
+            EnabledChanged();
+        }
     }
 
     QString Url() { return _url; }
@@ -48,12 +58,14 @@ public:
 
 signals:
 
+    void EnabledChanged();
     void UrlChanged();
     void WeightChanged();
     void DescriptionChanged();
 
 private:
 
+    bool _enabled;
     QString _url;
     int _weight;
     QString _description;

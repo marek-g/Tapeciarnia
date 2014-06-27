@@ -70,11 +70,19 @@ SourceViewModel *ProvidersManager::GetRandomSource(QList<SourceViewModel*> sourc
     int maxProbability = 0;
     for (int i = 0; i < sources.size(); i++)
     {
-        maxProbability += sources[i]->Weight();
+        if (sources[i]->Enabled())
+        {
+            maxProbability += sources[i]->Weight();
+        }
     }
 
     if (maxProbability == 0)
     {
+        if (sources.size() > 0)
+        {
+            return sources[0];
+        }
+
         return 0;
     }
 
@@ -82,10 +90,18 @@ SourceViewModel *ProvidersManager::GetRandomSource(QList<SourceViewModel*> sourc
 
     for (int i = 0; i < sources.size(); i++)
     {
-        randomValue -= sources[i]->Weight();
-        if (randomValue < 0) {
-            return sources[i];
+        if (sources[i]->Enabled())
+        {
+            randomValue -= sources[i]->Weight();
+            if (randomValue < 0) {
+                return sources[i];
+            }
         }
+    }
+
+    if (sources.size() > 0)
+    {
+        return sources[0];
     }
 
     return 0;
