@@ -1,4 +1,4 @@
-#if !_WIN32
+#if !_WIN32 && !__linux__
 
 #include "Desktop.h"
 
@@ -14,19 +14,17 @@ QRect Desktop::GetSize()
 
 void Desktop::SetWallpaper(const QByteArray &image)
 {
-    QString wallpaperPathJPG = QDir::homePath() + "/Pictures/Wallpaper";
+    QString wallpaperDirectory = QDir::homePath() + "/Obrazy/Wallpaper";
+    QString wallpaperFilePath = wallpaperDirectory + "/wallpaper.jpg";
 
-    QDir().mkdir(wallpaperPathJPG);
-
-    wallpaperPathJPG += "/wallpaper.jpg";
+    QDir().mkdir(wallpaperDirectory);
 
     // save array
-    QFile file(wallpaperPathJPG);
+    QFile file(wallpaperFilePath);
     file.open(QIODevice::WriteOnly);
     file.write(image);
     file.close();
 }
 
-
-#endif // !_WIN32
+#endif // !_WIN32 && !__linux__
 

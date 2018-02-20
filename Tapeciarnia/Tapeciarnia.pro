@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     System/Desktop_win32.cpp \
     System/Desktop_generic.cpp \
     Providers/TapetyTJAProvider.cpp \
-    Providers/TapeciarniaProvider.cpp
+    Providers/TapeciarniaProvider.cpp \
+    System/Desktop_linux.cpp
 
 HEADERS  += \
     TrayIcon.h \
