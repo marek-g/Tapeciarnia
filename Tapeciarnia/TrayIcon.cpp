@@ -290,7 +290,10 @@ void TrayIcon::nextWallpaper()
                     desktopSize.height());
         }
 
-        Desktop::SetWallpaper(result.image);
+        if (result.image.length() > 0)
+        {
+            Desktop::SetWallpaper(result.image);
+        }
 
         updateTrayIcon();
 
